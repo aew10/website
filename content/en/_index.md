@@ -33,7 +33,7 @@ Attendance is free, and participants are welcome to join one or both meetings. A
 
 ---
 
-**Ready to join?** [Register here!](/AEW11-Website/registration/)
+**Ready to join?** [Register here!](https://exoplanets.au/registration/)
 
 </div>
 
@@ -49,7 +49,7 @@ Attendance is free, and participants are welcome to join one or both meetings. A
 {{% blocks/feature icon="fa-earth-oceania" title="Exoplanets SOC" %}} Benjamin Pope (Macquarie University)
 {{% /blocks/feature %}}
 
-{{% blocks/feature icon="fa-solid fa-building-columns" title="LOC" %}} Tom Evans-Soma (Newcastle University)
+{{% blocks/feature icon="fa-solid fa-building-columns" title="LOC" %}} Tom Evans-Soma (Newcastle University)  
 Nicholas Borsato (Macquarie University)
 {{% /blocks/feature %}}
 

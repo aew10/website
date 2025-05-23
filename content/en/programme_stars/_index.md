@@ -17,8 +17,8 @@ The full programme for the **Stars** stream will be released following abstract 
 Please check back here soon for the full schedule of speakers and sessions.  
 
 **Key dates:**  
-Registration deadline: **{{< param "keydates.registration" >}}**  
-Abstract submission: **{{< param "keydates.abstract" >}}**  
+Abstract submissions open: **{{< param "keydates.abstract" >}}**  
+Registration & abstract deadline: **{{< param "keydates.closing_dates" >}}**  
 Programme finalised: **{{< param "keydates.programme" >}}**
 
 </div>

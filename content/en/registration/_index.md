@@ -20,8 +20,8 @@ Please fill out the form below to register.
 
 ## Key dates
 
-- Registration deadline: **{{< param "keydates.registration" >}}**  
-- Abstract submission: **{{< param "keydates.abstract" >}}**  
+- Abstract submissions open: **{{< param "keydates.abstract" >}}**  
+- Registration & abstract deadline: **{{< param "keydates.closing_dates" >}}**  
 - Programme finalised: **{{< param "keydates.programme" >}}**
 
 </div>
