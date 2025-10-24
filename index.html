@@ -27,6 +27,7 @@
 			  <li><a href="#logistics">Logistics & Venue Info</a></li>
 			  <li><a href="#conference-dinner">Conference dinner</a></li>
 			  <li><a href="#program-stars">Program – Stars</a></li>
+			  <li><a href="#program-joint">Program – Joint Day</a></li>
 			  <li><a href="#program-planets">Program – Planets</a></li>
 			  <li><a href="#two">Organising Committees</a></li>
 			  <li><a href="#logos">Supported By</a></li>
@@ -156,19 +157,42 @@
 
 <!-- Program: Stars -->
 <section id="program-stars" class="wrapper style3 fade-up" style="position: relative; background-image: url('images/website_images/NewCastleSkyLine_Stylised.png'); background-size: cover; background-repeat: no-repeat; background-position: center; min-height: 100vh;">
-  <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); z-index: 1;"></div>
+  <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); z-index: 1;"></div>
   <div class="inner" style="position: relative; z-index: 2; padding: 2rem; border-radius: 10px;">
-    <h2>Program: Stars</h2>
-    <p>The full program for the <strong>Stellar Astrophysics</strong> stream will be released following abstract review.</p>
+    <h2>Program: Stars (Mon 17th & Tue 18th)</h2>
+    <div class="program-day-toggle" role="tablist" aria-label="Stars program days">
+      <button class="day-btn active" role="tab" aria-selected="true" data-day="Monday">Monday 17th</button>
+      <button class="day-btn" role="tab" aria-selected="false" data-day="Tuesday">Tuesday 18th</button>
+    </div>
+    <div class="program-wrap" data-program-csv="assets/data/SiN_AEW11_Program.csv" data-info-csv="assets/data/SiN_AEW11_Information.csv" data-day="Monday">
+      <p>Loading program…</p>
+    </div>
+  </div>
+</section>
+
+<!-- Program: Joint Day -->
+<section id="program-joint" class="wrapper style3 fade-up" style="position: relative; background-repeat: no-repeat; background-position: center; background-size: cover; min-height: 100vh;">
+  <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); z-index: 1;"></div>
+  <div class="inner" style="position: relative; z-index: 2; padding: 2rem; border-radius: 10px;">
+    <h2>Program: Joint Day (Wed 19th)</h2>
+    <div class="program-wrap" data-program-csv="assets/data/SiN_AEW11_Program.csv" data-info-csv="assets/data/SiN_AEW11_Information.csv" data-day="Wednesday">
+      <p>Loading program…</p>
+    </div>
   </div>
 </section>
 
 <!-- Program: Planets -->
 <section id="program-planets" class="wrapper style2 fade-up" style="position: relative; background-image: url('images/website_images/TheWalkWay_Stylised_v2.png'); background-size: cover; background-repeat: no-repeat; background-position: center; min-height: 100vh;">
-  <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.2); z-index: 1;"></div>
+  <div style="position: absolute; inset: 0; background-color: rgba(0,0,0,0.6); z-index: 1;"></div>
   <div class="inner" style="position: relative; z-index: 2; padding: 2rem; border-radius: 10px;">
-    <h2>Program: Exoplanets</h2>
-    <p>The full program for the <strong>Exoplanets</strong> stream will be released following abstract review.</p>
+    <h2>Program: Exoplanets (Thu 20th & Fri 21st)</h2>
+    <div class="program-day-toggle" role="tablist" aria-label="Exoplanets program days">
+      <button class="day-btn active" role="tab" aria-selected="true" data-day="Thursday">Thursday 20th</button>
+      <button class="day-btn" role="tab" aria-selected="false" data-day="Friday">Friday 21st</button>
+    </div>
+    <div class="program-wrap" data-program-csv="assets/data/SiN_AEW11_Program.csv" data-info-csv="assets/data/SiN_AEW11_Information.csv" data-day="Thursday">
+      <p>Loading program…</p>
+    </div>
   </div>
 </section>
 
@@ -367,6 +391,272 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+<style>
+  /* Program table styles */
+  .program-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .program-table th, .program-table td { border-bottom: 1px solid rgba(255,255,255,0.15); padding: 0.5rem 0.6rem; vertical-align: top; }
+  .program-table th { text-align: left; font-weight: 700; }
+  .program-table tr:hover { background: rgba(255,255,255,0.05); }
+  .program-time { white-space: nowrap; width: 1%; }
+  .program-title { font-weight: 600; }
+  .program-actions { text-align: right; white-space: nowrap; width: 1%; }
+  @media (max-width: 740px) {
+    .program-table thead { display: none; }
+    .program-table tr { display: block; padding: 0.6rem 0; }
+    .program-table td { display: block; border: none; padding: 0.2rem 0; }
+    .program-table td[data-label]::before { content: attr(data-label) ": "; opacity: 0.8; font-weight: 600; }
+    .program-time { white-space: normal; }
+    .program-actions { text-align: left; }
+  }
+  /* Program day toggle */
+  .program-day-toggle { display: inline-flex; gap: 0.5rem; margin: 0.25rem 0 0.75rem; }
+  .program-day-toggle .day-btn {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: #fff;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .program-day-toggle .day-btn.active {
+    background: #7e57c2; /* soft purple */
+    color: #ffffff;
+    border-color: #7e57c2;
+  }
+  .program-day-toggle .day-btn:focus { outline: 2px solid rgba(255,255,255,0.6); outline-offset: 2px; }
+  .program-title .program-sub { display:block; font-weight: normal; opacity: 0.9; margin-top: 0.15rem; }
+  .program-title em { font-style: italic; opacity: 0.95; }
+</style>
+
+<script>
+// Program table and info merging
+(function(){
+  function parseCSV(text){
+    // Minimal CSV parser supporting quoted fields and commas
+    const rows = [];
+    let i=0, field='', row=[], inQuotes=false;
+    while(i < text.length){
+      const c = text[i];
+      if(inQuotes){
+        if(c === '"'){
+          if(text[i+1] === '"'){ field+='"'; i++; } else { inQuotes=false; }
+        } else { field += c; }
+      } else {
+        if(c === '"'){ inQuotes = true; }
+        else if(c === ','){ row.push(field.trim()); field=''; }
+        else if(c === '\n' || c === '\r'){ if(field!=='' || row.length){ row.push(field.trim()); rows.push(row); row=[]; field=''; }
+          // consume \r\n as one
+          if(c==='\r' && text[i+1]==='\n') i++;
+        } else { field += c; }
+      }
+      i++;
+    }
+    if(field!=='' || row.length) { row.push(field.trim()); rows.push(row); }
+    // remove empty trailing rows
+    return rows.filter(r => r.some(x => x && x.length));
+  }
+
+  function buildTable(container, csvUrl, dayName){
+    const infoCsv = container.getAttribute('data-info-csv');
+
+    // Helper to normalise names for matching
+    const norm = s => (s||'').toLowerCase().replace(/\s+/g,' ').trim();
+
+    const programP = fetch(csvUrl).then(r => { if(!r.ok) throw new Error('Failed to load '+csvUrl); return r.text(); });
+    const infoP = infoCsv ? fetch(infoCsv).then(r => { if(!r.ok) throw new Error('Failed to load '+infoCsv); return r.text(); }).catch(() => '') : Promise.resolve('');
+
+    Promise.all([programP, infoP])
+      .then(([progText, infoText]) => {
+        const data = parseCSV(progText);
+        if(!data.length){ container.innerHTML = '<p>No program data found.</p>'; return; }
+        const headers = data[0];
+        const rows = data.slice(1);
+
+        // Build an index from Information CSV if provided
+        let infoMap = new Map();
+        if (infoText && infoText.length) {
+          const infoData = parseCSV(infoText);
+          if (infoData.length) {
+            const ih = infoData[0];
+            const idxTitle = ih.findIndex(h => /^title\s*of\s*the\s*abstract$/i.test(h));
+            const idxAbs = ih.findIndex(h => /^abstract$/i.test(h));
+            const idxName = ih.findIndex(h => /presenter'?s\s*full\s*name/i.test(h));
+            const idxAff = ih.findIndex(h => /^affiliation$/i.test(h));
+            for (let i=1;i<infoData.length;i++){
+              const r = infoData[i];
+              const name = norm(r[idxName]);
+              if(!name) continue;
+              infoMap.set(name, {
+                title: (r[idxTitle]||'').trim(),
+                abstract: (r[idxAbs]||'').trim(),
+                affiliation: (r[idxAff]||'').trim()
+              });
+            }
+          }
+        }
+
+        // Detect wide format (Time + Day columns)
+        const timeIdx = headers.findIndex(h => /^time$/i.test(h));
+        const dayIdx = dayName ? headers.findIndex(h => new RegExp('^' + dayName + '$','i').test(h)) : -1;
+        const isWideByDay = timeIdx >= 0 && dayIdx >= 0;
+
+        const table = document.createElement('table');
+        table.className = 'program-table';
+        const tbody = document.createElement('tbody');
+
+        if (isWideByDay) {
+          rows.forEach(r => {
+            const t = (r[timeIdx]||'').trim();
+            const speaker = (r[dayIdx]||'').trim();
+            if (!t && !speaker) return; // skip empty rows
+
+            const tr = document.createElement('tr');
+
+            // Time column
+            const tdTime = document.createElement('td');
+            tdTime.className = 'program-time';
+            tdTime.setAttribute('data-label','Time');
+            tdTime.textContent = t;
+            tr.appendChild(tdTime);
+
+            // Details column (name, affiliation, title)
+            const tdVal = document.createElement('td');
+            tdVal.className = 'program-title';
+            tdVal.setAttribute('data-label', dayName);
+
+            const info = infoMap.get(norm(speaker));
+            const title = info && info.title ? info.title : '';
+            const aff = info && info.affiliation ? info.affiliation : '';
+            const abs = info && info.abstract ? info.abstract : '';
+
+            const nameLine = speaker ? '<strong>'+speaker+'</strong>' : '';
+            const affLine = aff ? '<span class="program-sub">'+aff+'</span>' : '';
+            const titleLine = title ? '<span class="program-sub"><em>'+title+'</em></span>' : '';
+            tdVal.innerHTML = nameLine + affLine + titleLine;
+            tr.appendChild(tdVal);
+
+            // Actions column (abstract button)
+            const tdAct = document.createElement('td');
+            tdAct.className = 'program-actions';
+            tdAct.setAttribute('data-label', 'Abstract');
+            if (abs) {
+              const btn = document.createElement('button');
+              btn.className = 'abstract-toggle';
+              btn.type = 'button';
+              btn.setAttribute('aria-expanded','false');
+              btn.textContent = 'Abstract';
+              tdAct.appendChild(btn);
+            } else {
+              const span = document.createElement('span');
+              span.textContent = '—';
+              span.setAttribute('aria-hidden','true');
+              tdAct.appendChild(span);
+            }
+            tr.appendChild(tdAct);
+
+            tbody.appendChild(tr);
+
+            // Hidden abstract row spanning all columns
+            if (abs) {
+              const trAbs = document.createElement('tr');
+              trAbs.className = 'abstract-row';
+              const tdAbs = document.createElement('td');
+              tdAbs.colSpan = 3; // Time + Details + Actions
+              const div = document.createElement('div');
+              div.className = 'abstract-text';
+              div.innerHTML = abs.replace(/\n/g,'<br>');
+              tdAbs.appendChild(div);
+              trAbs.appendChild(tdAbs);
+              tbody.appendChild(trAbs);
+            }
+          });
+        } else {
+          // Fallback: generic table (kept as earlier, now with Title-of-the-Abstract detection)
+          const abstractIdx = headers.findIndex(h => /^(abstract|abstracts)$/i.test(h));
+          const typeIdx = headers.findIndex(h => /^type$/i.test(h));
+          const titleIdx = headers.findIndex(h => /^(title|title of the abstract)$/i.test(h));
+          const visibleColCount = headers.length - (abstractIdx >= 0 ? 1 : 0) - (typeIdx >= 0 ? 1 : 0);
+
+          rows.forEach(r => {
+            if(r.length === 1 && r[0] && r[0].startsWith('##')){
+              const tr = document.createElement('tr');
+              const td = document.createElement('td');
+              td.colSpan = visibleColCount;
+              td.innerHTML = '<h3 style="margin:0.6rem 0 0.2rem;">'+ r[0].replace(/^##+\s*/, '') +'</h3>';
+              tr.appendChild(td); tbody.appendChild(tr);
+              return;
+            }
+            const tr = document.createElement('tr');
+            const absVal = abstractIdx>=0 ? (r[abstractIdx]||'').trim() : '';
+            headers.forEach((h, idx) => {
+              if (idx === abstractIdx || idx === typeIdx) return;
+              const td = document.createElement('td');
+              td.setAttribute('data-label', h);
+              let val = (r[idx]||'').trim();
+              if (/^(time|when)$/i.test(h)) td.classList.add('program-time');
+              if (/^(title|title of the abstract)$/i.test(h)) {
+                td.classList.add('program-title');
+                if (val && titleIdx>=0 && idx===titleIdx) {
+                  val = '<em>'+val+'</em>';
+                }
+              }
+              td.innerHTML = val.replace(/\n/g,'<br>');
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+            if (absVal) {
+              const trAbs = document.createElement('tr');
+              trAbs.className = 'abstract-row';
+              const tdAbs = document.createElement('td');
+              tdAbs.colSpan = visibleColCount;
+              const div = document.createElement('div');
+              div.className = 'abstract-text';
+              div.innerHTML = absVal.replace(/\n/g,'<br>');
+              tdAbs.appendChild(div);
+              trAbs.appendChild(tdAbs);
+              tbody.appendChild(trAbs);
+            }
+          });
+        }
+
+        table.appendChild(tbody);
+        container.innerHTML = '';
+        container.appendChild(table);
+      })
+      .catch(err => {
+        console.error(err);
+        container.innerHTML = '<p style="color:#ffdddd;">Could not load program. Please check the CSV path.</p>';
+      });
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.program-wrap').forEach(function(container){
+      const csv = container.getAttribute('data-program-csv');
+      const day = container.getAttribute('data-day');
+      if (csv) buildTable(container, csv, day);
+
+      const section = container.closest('section');
+      if (!section) return;
+      const btns = section.querySelectorAll('.program-day-toggle .day-btn');
+      btns.forEach(function(btn){
+        btn.addEventListener('click', function(){
+          btns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+
+          const daySel = btn.getAttribute('data-day');
+          const csvPath = container.getAttribute('data-program-csv'); // same CSV for all
+          container.setAttribute('data-day', daySel);
+          container.innerHTML = '<p>Loading program…</p>';
+          buildTable(container, csvPath, daySel);
+        });
+      });
+    });
+  });
+})();
+</script>
 
 </div> <!-- Close wrapper -->
 </body>
