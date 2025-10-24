@@ -186,5 +186,14 @@
 
 				}
 			});
+// Program abstract toggles
+$(document).on('click', '.abstract-toggle', function() {
+  var $btn = $(this);
+  var $row = $btn.closest('tr');
+  var $abs = $row.next('.abstract-row');
+  var isOpen = $btn.hasClass('open');
+  $btn.toggleClass('open', !isOpen).attr('aria-expanded', !isOpen);
+  $abs.toggleClass('open', !isOpen);
+});
 
 })(jQuery);
