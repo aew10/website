@@ -464,6 +464,25 @@
     // Helper to normalise names for matching
     const norm = s => (s||'').toLowerCase().replace(/\s+/g,' ').trim();
 
+    // Map a day label to a track we can use to disambiguate abstracts
+    function trackFromDay(dayName){
+      const d = (dayName||'').toLowerCase();
+      if (/^mon|monday|tue|tuesday/.test(d)) return 'stars';
+      if (/^thu|thursday|fri|friday/.test(d)) return 'planets';
+      if (/^wed|wednesday|joint/.test(d)) return 'joint';
+      return '';
+    }
+
+    // Normalise free-text track labels from the Information CSV
+    function normTrack(label){
+      const t = (label||'').toLowerCase().trim();
+      if (!t) return '';
+      if (/^(stars|star|sin|stars in newcastle)/.test(t)) return 'stars';
+      if (/^(planets|aew|aew11|exoplanet|exoplanets)/.test(t)) return 'planets';
+      if (/^(joint|shared|star\s*[-–]\s*planet|star\s*planet)/.test(t)) return 'joint';
+      return t; // fallback to raw (still lowercased)
+    }
+
     const programP = fetch(csvUrl).then(r => { if(!r.ok) throw new Error('Failed to load '+csvUrl); return r.text(); });
     const infoP = infoCsv ? fetch(infoCsv).then(r => { if(!r.ok) throw new Error('Failed to load '+infoCsv); return r.text(); }).catch(() => '') : Promise.resolve('');
 
@@ -488,11 +507,19 @@
               const r = infoData[i];
               const name = norm(r[idxName]);
               if(!name) continue;
-              infoMap.set(name, {
+              // Optionally read a track/conference column, fall back to empty
+              const idxTrack = ih.findIndex(h => /(track|conference|meeting|session|event)/i.test(h));
+              const trackLabel = idxTrack >= 0 ? normTrack(r[idxTrack]) : '';
+
+              // Retrieve existing entry for this presenter
+              const existing = infoMap.get(name) || {};
+              const key = trackLabel || '*'; // '*' used as fallback when no track provided
+              existing[key] = {
                 title: (r[idxTitle]||'').trim(),
                 abstract: (r[idxAbs]||'').trim(),
                 affiliation: (r[idxAff]||'').trim()
-              });
+              };
+              infoMap.set(name, existing);
             }
           }
         }
@@ -526,10 +553,28 @@
             tdVal.className = 'program-title';
             tdVal.setAttribute('data-label', dayName);
 
-            const info = infoMap.get(norm(speaker));
-            const title = info && info.title ? info.title : '';
-            const aff = info && info.affiliation ? info.affiliation : '';
-            const abs = info && info.abstract ? info.abstract : '';
+            // Abstract/Info lookup by track
+            const presenterKey = norm(speaker);
+            const byTrack = infoMap.get(presenterKey);
+            let picked = null;
+            if (byTrack) {
+              const want = trackFromDay(dayName);
+              if (want && byTrack[want]) {
+                picked = byTrack[want];
+              } else if (want && byTrack['joint']) {
+                // If this talk is marked as joint in the info CSV, prefer it when no exact day-track match exists
+                picked = byTrack['joint'];
+              } else if (byTrack['*']) {
+                picked = byTrack['*'];
+              } else {
+                // pick first available track entry as last resort
+                const keys = Object.keys(byTrack);
+                if (keys.length) picked = byTrack[keys[0]];
+              }
+            }
+            const title = picked && picked.title ? picked.title : '';
+            const aff = picked && picked.affiliation ? picked.affiliation : '';
+            const abs = picked && picked.abstract ? picked.abstract : '';
 
             const nameLine = speaker ? '<strong>'+speaker+'</strong>' : '';
             const affLine = aff ? '<span class="program-sub">'+aff+'</span>' : '';
