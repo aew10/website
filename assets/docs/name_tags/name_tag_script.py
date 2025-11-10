@@ -17,25 +17,18 @@ except Exception:
 # or:
 plt.rcParams['font.family'] = 'Georgia'
 
-#
 # Load the background once
 bg_path = "Name_Tag_Image.png"
-bg_path = "Name_Tag_Image_HiRes.png"
 bg_img = Image.open(bg_path).convert("RGB")
 
 # Base font sizes (will be auto-fitted)
-NAME_FS_START, NAME_FS_MIN = 22, 12
-AFFIL_FS_START, AFFIL_FS_MIN = 14, 8
-PRONOUN_FS = 12
-
-# A4 paper dimensions in inches
-A4_WIDTH_IN, A4_HEIGHT_IN = 8.27, 11.69
-# Name tag grid layout (rows x columns per page)
-ROWS_PER_PAGE, COLS_PER_PAGE = 5, 2
+NAME_FS_START, NAME_FS_MIN = 28, 16
+AFFIL_FS_START, AFFIL_FS_MIN = 18, 12
+PRONOUN_FS = 16
 
 # Load the consolidated CSV of attendees with pronouns
 tab = Table.read(
-    "Name_Badge_List.csv",
+    "Name_Tags_with_pronoun.csv",
     format="ascii.csv",
     guess=False,
     fast_reader=False,
@@ -60,35 +53,14 @@ def pick_column(table, candidates):
             return lower_map[c.lower()]
     raise KeyError(f"None of {candidates} found in columns: {table.colnames}")
 
-# Resolve columns with support for both old and new formats
-# Name can be a single column OR split as First_Name + Last_Name
-first_col = last_col = None
-try:
-    name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter’s Full Name", "Full Name"])
-except KeyError:
-    name_col = None
-    # New CSV uses split columns
-    first_col = pick_column(tab, ["First_Name", "First Name", "Given_Name", "Given Name"])
-    last_col  = pick_column(tab, ["Last_Name", "Last Name", "Surname", "Family_Name", "Family Name"])
-
-# Affiliation header variants
+# Use the new consolidated CSV headers first, fall back to legacy headers
+name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter’s Full Name", "Full Name"])
 affil_col = pick_column(tab, ["affil", "Affiliation", "Institute", "Institution"])
 
-# Pronouns header variants
 try:
     pronoun_col = pick_column(tab, ["pronoun", "Pronoun", "Pronouns"])
 except KeyError:
     pronoun_col = None
-
-def compose_name(i: int) -> str:
-    """Return display name for row i using either a single name column or First/Last."""
-    if name_col is not None:
-        return str(tab[name_col][i]).strip()
-    # Build from first/last; tolerate missing pieces
-    first = str(tab[first_col][i]).strip() if first_col in tab.colnames else ""
-    last  = str(tab[last_col][i]).strip() if last_col in tab.colnames else ""
-    full = f"{first} {last}".strip()
-    return full
 
 def normalise_pronoun(val: object) -> str:
     """Return a clean pronoun string, or '' if it's effectively empty."""
@@ -207,24 +179,18 @@ def draw_name_tag(ax, bg_img, name, affil, pronoun=""):
     ax.axis("off")
 
 # Helper to chunk the table into pages of N entries
-PER_PAGE = ROWS_PER_PAGE * COLS_PER_PAGE  # 5 rows x 2 cols
+PER_PAGE = 10  # 5 rows x 2 cols
 
 def paginate_indices(n_items, per_page=PER_PAGE):
     for start in range(0, n_items, per_page):
         yield range(start, min(start + per_page, n_items))
 
-#
-# Layout tuning
-WSPACE, HSPACE = 0.05, 0.1  # spacing between name tags
-OUTPUT_DPI = 300  # output resolution for saved PDFs
-
 # Loop over all names, rendering 5x2 per page
 page_iter = list(paginate_indices(len(tab), PER_PAGE))
-page_iter = page_iter[:1]  # Only render the first page for layout testing
 
 # --- Diagnostics for consolidated CSV ---
 try:
-    all_names = [compose_name(i) for i in range(len(tab))]
+    all_names = [str(x).strip() for x in tab[name_col]]
     print(f"[diagnostic] Total entries: {len(all_names)}")
     if pronoun_col is not None:
         cleaned = [normalise_pronoun(x) for x in tab[pronoun_col]]
@@ -241,28 +207,29 @@ combined_pdf_path = "name_tags_all_pages.pdf"
 pdf_combined = PdfPages(combined_pdf_path)
 
 for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), start=1):
-    fig, axes = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
+    fig, axes = plt.subplots(5, 2, figsize=(16, 20))
     axes = axes.flatten()
 
     # Fill this page
     for ax, i in zip(axes, list(idx_range)):
-        name  = compose_name(i)
+        name  = str(tab[name_col][i]).strip()
         affil = str(tab[affil_col][i]).strip()
         pron = ""
         if pronoun_col is not None:
             val = tab[pronoun_col][i]
             pron = normalise_pronoun(val)
+        # No bullet/marker next to the name
         draw_name_tag(ax, bg_img, name, affil, pronoun=pron)
 
     # Any leftover axes (if last page has <10 entries)
     for ax in axes[len(list(idx_range)):]:
         ax.axis('off')
 
-    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
+    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=0, hspace=0.02)
 
     output_pdf = f"name_tags_page_{p_idx:02d}.pdf"
-    plt.savefig(output_pdf, format='pdf', bbox_inches='tight', dpi=OUTPUT_DPI)
-    pdf_combined.savefig(fig, bbox_inches='tight', dpi=OUTPUT_DPI)
+    plt.savefig(output_pdf, format='pdf', bbox_inches='tight', dpi=100)
+    pdf_combined.savefig(fig, bbox_inches='tight', dpi=100)
     print(f"Saved page {p_idx} to {output_pdf}")
     plt.close(fig)
 
