@@ -17,6 +17,7 @@ except Exception:
 # or:
 plt.rcParams['font.family'] = 'Georgia'
 
+#
 # Load the background once
 bg_path = "Name_Tag_Image.png"
 bg_img = Image.open(bg_path).convert("RGB")
