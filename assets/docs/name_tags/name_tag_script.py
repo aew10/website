@@ -17,6 +17,7 @@ except Exception:
 # or:
 plt.rcParams['font.family'] = 'Georgia'
 
+#
 # Load the background once
 bg_path = "Name_Tag_Image.png"
 bg_img = Image.open(bg_path).convert("RGB")
@@ -28,7 +29,7 @@ PRONOUN_FS = 16
 
 # Load the consolidated CSV of attendees with pronouns
 tab = Table.read(
-    "Name_Tags_with_pronoun.csv",
+    "Name_Badge_List.csv",
     format="ascii.csv",
     guess=False,
     fast_reader=False,
@@ -53,14 +54,35 @@ def pick_column(table, candidates):
             return lower_map[c.lower()]
     raise KeyError(f"None of {candidates} found in columns: {table.colnames}")
 
-# Use the new consolidated CSV headers first, fall back to legacy headers
-name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter’s Full Name", "Full Name"])
+# Resolve columns with support for both old and new formats
+# Name can be a single column OR split as First_Name + Last_Name
+first_col = last_col = None
+try:
+    name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter’s Full Name", "Full Name"])
+except KeyError:
+    name_col = None
+    # New CSV uses split columns
+    first_col = pick_column(tab, ["First_Name", "First Name", "Given_Name", "Given Name"])
+    last_col  = pick_column(tab, ["Last_Name", "Last Name", "Surname", "Family_Name", "Family Name"])
+
+# Affiliation header variants
 affil_col = pick_column(tab, ["affil", "Affiliation", "Institute", "Institution"])
 
+# Pronouns header variants
 try:
     pronoun_col = pick_column(tab, ["pronoun", "Pronoun", "Pronouns"])
 except KeyError:
     pronoun_col = None
+
+def compose_name(i: int) -> str:
+    """Return display name for row i using either a single name column or First/Last."""
+    if name_col is not None:
+        return str(tab[name_col][i]).strip()
+    # Build from first/last; tolerate missing pieces
+    first = str(tab[first_col][i]).strip() if first_col in tab.colnames else ""
+    last  = str(tab[last_col][i]).strip() if last_col in tab.colnames else ""
+    full = f"{first} {last}".strip()
+    return full
 
 def normalise_pronoun(val: object) -> str:
     """Return a clean pronoun string, or '' if it's effectively empty."""
@@ -190,7 +212,7 @@ page_iter = list(paginate_indices(len(tab), PER_PAGE))
 
 # --- Diagnostics for consolidated CSV ---
 try:
-    all_names = [str(x).strip() for x in tab[name_col]]
+    all_names = [compose_name(i) for i in range(len(tab))]
     print(f"[diagnostic] Total entries: {len(all_names)}")
     if pronoun_col is not None:
         cleaned = [normalise_pronoun(x) for x in tab[pronoun_col]]
@@ -212,13 +234,12 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
 
     # Fill this page
     for ax, i in zip(axes, list(idx_range)):
-        name  = str(tab[name_col][i]).strip()
+        name  = compose_name(i)
         affil = str(tab[affil_col][i]).strip()
         pron = ""
         if pronoun_col is not None:
             val = tab[pronoun_col][i]
             pron = normalise_pronoun(val)
-        # No bullet/marker next to the name
         draw_name_tag(ax, bg_img, name, affil, pronoun=pron)
 
     # Any leftover axes (if last page has <10 entries)
