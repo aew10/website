@@ -19,12 +19,18 @@ plt.rcParams['font.family'] = 'Georgia'
 
 # Load the background once
 bg_path = "Name_Tag_Image.png"
+bg_path = "Name_Tag_Image_HiRes.png"
 bg_img = Image.open(bg_path).convert("RGB")
 
 # Base font sizes (will be auto-fitted)
-NAME_FS_START, NAME_FS_MIN = 28, 16
-AFFIL_FS_START, AFFIL_FS_MIN = 18, 12
-PRONOUN_FS = 16
+NAME_FS_START, NAME_FS_MIN = 22, 12
+AFFIL_FS_START, AFFIL_FS_MIN = 14, 8
+PRONOUN_FS = 12
+
+# A4 paper dimensions in inches
+A4_WIDTH_IN, A4_HEIGHT_IN = 8.27, 11.69
+# Name tag grid layout (rows x columns per page)
+ROWS_PER_PAGE, COLS_PER_PAGE = 5, 2
 
 # Load the consolidated CSV of attendees with pronouns
 tab = Table.read(
@@ -200,14 +206,20 @@ def draw_name_tag(ax, bg_img, name, affil, pronoun=""):
     ax.axis("off")
 
 # Helper to chunk the table into pages of N entries
-PER_PAGE = 10  # 5 rows x 2 cols
+PER_PAGE = ROWS_PER_PAGE * COLS_PER_PAGE  # 5 rows x 2 cols
 
 def paginate_indices(n_items, per_page=PER_PAGE):
     for start in range(0, n_items, per_page):
         yield range(start, min(start + per_page, n_items))
 
+#
+# Layout tuning
+WSPACE, HSPACE = 0.05, 0.1  # spacing between name tags
+OUTPUT_DPI = 300  # output resolution for saved PDFs
+
 # Loop over all names, rendering 5x2 per page
 page_iter = list(paginate_indices(len(tab), PER_PAGE))
+page_iter = page_iter[:1]  # Only render the first page for layout testing
 
 # --- Diagnostics for consolidated CSV ---
 try:
@@ -228,7 +240,7 @@ combined_pdf_path = "name_tags_all_pages.pdf"
 pdf_combined = PdfPages(combined_pdf_path)
 
 for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), start=1):
-    fig, axes = plt.subplots(5, 2, figsize=(16, 20))
+    fig, axes = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
     axes = axes.flatten()
 
     # Fill this page
@@ -245,11 +257,11 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
     for ax in axes[len(list(idx_range)):]:
         ax.axis('off')
 
-    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=0, hspace=0.02)
+    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
 
     output_pdf = f"name_tags_page_{p_idx:02d}.pdf"
-    plt.savefig(output_pdf, format='pdf', bbox_inches='tight', dpi=100)
-    pdf_combined.savefig(fig, bbox_inches='tight', dpi=100)
+    plt.savefig(output_pdf, format='pdf', bbox_inches='tight', dpi=OUTPUT_DPI)
+    pdf_combined.savefig(fig, bbox_inches='tight', dpi=OUTPUT_DPI)
     print(f"Saved page {p_idx} to {output_pdf}")
     plt.close(fig)
 
