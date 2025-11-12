@@ -23,7 +23,7 @@ bg_path = "Name_Tag_Image_HiRes.png"
 bg_img = Image.open(bg_path).convert("RGB")
 
 # Base font sizes (will be auto-fitted)
-NAME_FS_START, NAME_FS_MIN = 18, 8
+NAME_FS_START, NAME_FS_MIN = 14, 8
 AFFIL_FS_START, AFFIL_FS_MIN = 10, 4
 PRONOUN_FS = 8
 
