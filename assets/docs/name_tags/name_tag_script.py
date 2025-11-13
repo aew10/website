@@ -6,6 +6,30 @@ from matplotlib.patheffects import withStroke
 from matplotlib.backends.backend_pdf import PdfPages
 import matplotlib as mpl
 
+# =============================
+# USER CONFIGURATION SECTION
+# =============================
+# Adjust these values to tweak layout without touching the code below.
+
+# Outer borders (white margins outside the perforated rectangles)
+BORDER_TOP_MM = 10     # mm
+BORDER_BOTTOM_MM = 10  # mm
+BORDER_LEFT_MM = 15    # mm
+BORDER_RIGHT_MM = 15   # mm
+
+# Tag count per page (perforation layout)
+ROWS_PER_PAGE = 5
+COLS_PER_PAGE = 2
+
+# Adjust to scale tag size inside each perforated zone
+TAG_SCALE = 1.00   # 1.00 = default; <1 shrinks tag slightly, >1 grows it
+
+# Padding inside each name tag image (affects artwork inset)
+TAG_PADDING_FRAC = 0.02   # fraction of width/height
+# =============================
+# END USER CONFIG SECTION
+# =============================
+
 # Progress bar (tqdm) with graceful fallback if not installed
 try:
     from tqdm import tqdm  # type: ignore
@@ -29,8 +53,8 @@ PRONOUN_FS = 8
 
 # A4 paper dimensions in inches
 A4_WIDTH_IN, A4_HEIGHT_IN = 8.27, 11.69
-# Name tag grid layout (rows x columns per page)
-ROWS_PER_PAGE, COLS_PER_PAGE = 5, 2
+## Name tag grid layout (rows x columns per page)
+# (Now configured in the USER CONFIGURATION SECTION above)
 
 # Layout tuning
 WSPACE, HSPACE = 0.05, 0.1  # spacing between name tags
@@ -131,10 +155,17 @@ def _axis_pixel_width(ax):
     return ax.get_window_extent(renderer=renderer).width
 
 def draw_name_tag(ax, bg_img, name, affil, pronoun=""):
-    ax.imshow(bg_img)
-
-    # Get image size and correct text placement using image coordinates
+    # Inset padding to avoid print clipping
     height, width = bg_img.size[1], bg_img.size[0]
+    pad_frac = TAG_PADDING_FRAC
+    pad_x = width * pad_frac
+    pad_y = height * pad_frac
+
+    ax.imshow(
+        bg_img,
+        extent=(pad_x, width - pad_x, height - pad_y, pad_y)
+    )
+
 
     # Ensure a renderer exists for measurements
     ax.figure.canvas.draw_idle()
@@ -236,8 +267,32 @@ combined_pdf_path = "name_tags_all_pages.pdf"
 pdf_combined = PdfPages(combined_pdf_path)
 
 for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), start=1):
-    fig, axes = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
-    axes = axes.flatten()
+    #fig, axes = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
+    #axes = axes.flatten()
+    fig = plt.figure(figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
+
+    # Convert mm borders to page-fractions
+    PAGE_WIDTH_MM = 210.0
+    PAGE_HEIGHT_MM = 297.0
+
+    border_top = BORDER_TOP_MM / PAGE_HEIGHT_MM
+    border_bottom = BORDER_BOTTOM_MM / PAGE_HEIGHT_MM
+    border_left = BORDER_LEFT_MM / PAGE_WIDTH_MM
+    border_right = BORDER_RIGHT_MM / PAGE_WIDTH_MM
+
+    # Compute tag size in fractions, then apply scaling
+    tag_h = ((1.0 - border_top - border_bottom) / ROWS_PER_PAGE) * TAG_SCALE
+    tag_w = ((1.0 - border_left - border_right) / COLS_PER_PAGE) * TAG_SCALE
+
+    # Build grid (5 rows x 2 cols) with symmetric top/bottom margins
+    axes = []
+    for r in range(ROWS_PER_PAGE):
+        # bottom from top border downward
+        bottom = 1 - border_top - (r+1)*tag_h
+        for c in range(COLS_PER_PAGE):
+            left = border_left + c * tag_w
+            ax = fig.add_axes([left, bottom, tag_w, tag_h])
+            axes.append(ax)
 
     # Fill this page
     for ax, i in zip(axes, list(idx_range)):
@@ -253,17 +308,29 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
     for ax in axes[len(list(idx_range)):]:
         ax.axis('off')
 
-    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
+    #plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
 
     output_pdf = f"name_tags_page_{p_idx:02d}.pdf"
-    plt.savefig(output_pdf, format='pdf', bbox_inches='tight', dpi=OUTPUT_DPI)
-    pdf_combined.savefig(fig, bbox_inches='tight', dpi=OUTPUT_DPI)
+    fig.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
+    plt.savefig(output_pdf, format='pdf', dpi=OUTPUT_DPI)
+    fig.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
+    pdf_combined.savefig(fig, dpi=OUTPUT_DPI)
     print(f"Saved page {p_idx} to {output_pdf}")
     plt.close(fig)
 
     # --- BACK PAGE GENERATION ---
-    fig_back, axes_back = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
-    axes_back = axes_back.flatten()
+    #fig_back, axes_back = plt.subplots(ROWS_PER_PAGE, COLS_PER_PAGE, figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
+    #axes_back = axes_back.flatten()
+    fig_back = plt.figure(figsize=(A4_WIDTH_IN, A4_HEIGHT_IN))
+
+    # Build grid (5 rows x 2 cols) for back page with symmetric top/bottom margins
+    axes_back = []
+    for r in range(ROWS_PER_PAGE):
+        bottom = 1 - border_top - (r+1)*tag_h
+        for c in range(COLS_PER_PAGE):
+            left = border_left + c * tag_w
+            ax_back = fig_back.add_axes([left, bottom, tag_w, tag_h])
+            axes_back.append(ax_back)
 
     for ax in axes_back:
         ax.imshow(bg_img,alpha=0.4)
@@ -277,14 +344,44 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
         ax.text(width / 2 + 10, height * 0.45, WIFI_PASSWORD, ha="left", va="center", fontsize=WIFI_FS)
         ax.axis("off")
 
-    plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
+    #plt.subplots_adjust(left=0.12, right=0.88, top=0.99, bottom=0.01, wspace=WSPACE, hspace=HSPACE)
 
     output_back_pdf = f"name_tags_back_{p_idx:02d}.pdf"
-    plt.savefig(output_back_pdf, format='pdf', bbox_inches='tight', dpi=OUTPUT_DPI)
-    pdf_combined.savefig(fig_back, bbox_inches='tight', dpi=OUTPUT_DPI)
+    fig_back.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
+    plt.savefig(output_back_pdf, format='pdf', dpi=OUTPUT_DPI)
+    fig_back.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
+    pdf_combined.savefig(fig_back, dpi=OUTPUT_DPI)
     print(f"Saved back page {p_idx} to {output_back_pdf}")
     plt.close(fig_back)
 
 # Finalize combined PDF
 pdf_combined.close()
 print(f"Saved combined multi-page PDF to {combined_pdf_path}")
+
+import subprocess
+import shutil
+
+# Optional: compress final PDF using Ghostscript if available
+gs_cmd = shutil.which("gs")
+if gs_cmd is not None:
+    compressed_output = "name_tags_all_pages_compressed.pdf"
+    try:
+        subprocess.run(
+            [
+                gs_cmd,
+                "-sDEVICE=pdfwrite",
+                "-dCompatibilityLevel=1.4",
+                "-dPDFSETTINGS=/prepress",
+                "-dNOPAUSE",
+                "-dQUIET",
+                "-dBATCH",
+                f"-sOutputFile={compressed_output}",
+                combined_pdf_path,
+            ],
+            check=True
+        )
+        print(f"Compressed PDF saved to {compressed_output}")
+    except Exception as e:
+        print(f"Ghostscript compression failed: {e}")
+else:
+    print("Ghostscript not found — skipping PDF compression.")
