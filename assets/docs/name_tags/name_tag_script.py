@@ -12,10 +12,10 @@ import matplotlib as mpl
 # Adjust these values to tweak layout without touching the code below.
 
 # Outer borders (white margins outside the perforated rectangles)
-BORDER_TOP_MM = 10     # mm
+BORDER_TOP_MM = 8     # mm
 BORDER_BOTTOM_MM = 10  # mm
-BORDER_LEFT_MM = 15    # mm
-BORDER_RIGHT_MM = 15   # mm
+BORDER_LEFT_MM = 14.5    # mm
+BORDER_RIGHT_MM = 14.5   # mm
 
 # Tag count per page (perforation layout)
 ROWS_PER_PAGE = 5
@@ -25,7 +25,7 @@ COLS_PER_PAGE = 2
 TAG_SCALE = 1.00   # 1.00 = default; <1 shrinks tag slightly, >1 grows it
 
 # Padding inside each name tag image (affects artwork inset)
-TAG_PADDING_FRAC = 0.02   # fraction of width/height
+TAG_PADDING_FRAC = 0.001   # fraction of width/height
 # =============================
 # END USER CONFIG SECTION
 # =============================
@@ -47,9 +47,9 @@ bg_path = "Name_Tag_Image_HiRes.png"
 bg_img = Image.open(bg_path).convert("RGB")
 
 # Base font sizes (will be auto-fitted)
-NAME_FS_START, NAME_FS_MIN = 14, 8
-AFFIL_FS_START, AFFIL_FS_MIN = 10, 4
-PRONOUN_FS = 8
+NAME_FS_START, NAME_FS_MIN = 16, 10
+AFFIL_FS_START, AFFIL_FS_MIN = 14, 6
+PRONOUN_FS = 12
 
 # A4 paper dimensions in inches
 A4_WIDTH_IN, A4_HEIGHT_IN = 8.27, 11.69
@@ -57,7 +57,7 @@ A4_WIDTH_IN, A4_HEIGHT_IN = 8.27, 11.69
 # (Now configured in the USER CONFIGURATION SECTION above)
 
 # Layout tuning
-WSPACE, HSPACE = 0.05, 0.1  # spacing between name tags
+# WSPACE, HSPACE = 0.05, 0.1  # spacing between name tags
 OUTPUT_DPI = 300  # output resolution for saved PDFs
 WIFI_NAME = "Fort Scratchley"
 WIFI_PASSWORD = "Fort!2300"
@@ -94,7 +94,7 @@ def pick_column(table, candidates):
 # Name can be a single column OR split as First_Name + Last_Name
 first_col = last_col = None
 try:
-    name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter’s Full Name", "Full Name"])
+    name_col = pick_column(tab, ["name", "Name", "Presenter's Full Name", "Presenter's Full Name", "Full Name"])
 except KeyError:
     name_col = None
     # New CSV uses split columns
@@ -312,7 +312,7 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
 
     output_pdf = f"name_tags_page_{p_idx:02d}.pdf"
     fig.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
-    plt.savefig(output_pdf, format='pdf', dpi=OUTPUT_DPI)
+    fig.savefig(output_pdf, format='pdf', dpi=OUTPUT_DPI)
     fig.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
     pdf_combined.savefig(fig, dpi=OUTPUT_DPI)
     print(f"Saved page {p_idx} to {output_pdf}")
@@ -333,14 +333,20 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
             axes_back.append(ax_back)
 
     for ax in axes_back:
-        ax.imshow(bg_img,alpha=0.4)
         height, width = bg_img.size[1], bg_img.size[0]
+        
+        pad_frac = TAG_PADDING_FRAC
+        pad_x = width * pad_frac
+        pad_y = height * pad_frac
+
+        ax.imshow(bg_img,alpha=0.4,extent=(pad_x, width - pad_x, height - pad_y, pad_y))
+        
         ax.set_xlim(0, width)
         ax.set_ylim(height, 0)
 
-        ax.text(width / 2, height * 0.35, "WiFi:", ha="right", va="center", fontsize=WIFI_FS, weight="bold")
+        ax.text(width / 2, height * 0.35, "WiFi: ", ha="right", va="center", fontsize=WIFI_FS, weight="bold")
         ax.text(width / 2 + 10, height * 0.35, WIFI_NAME, ha="left", va="center", fontsize=WIFI_FS)
-        ax.text(width / 2, height * 0.45, "Password:", ha="right", va="center", fontsize=WIFI_FS, weight="bold")
+        ax.text(width / 2, height * 0.45, "Password: ", ha="right", va="center", fontsize=WIFI_FS, weight="bold")
         ax.text(width / 2 + 10, height * 0.45, WIFI_PASSWORD, ha="left", va="center", fontsize=WIFI_FS)
         ax.axis("off")
 
@@ -348,7 +354,7 @@ for p_idx, idx_range in enumerate(tqdm(page_iter, desc="Pages", unit="page"), st
 
     output_back_pdf = f"name_tags_back_{p_idx:02d}.pdf"
     fig_back.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
-    plt.savefig(output_back_pdf, format='pdf', dpi=OUTPUT_DPI)
+    fig_back.savefig(output_back_pdf, format='pdf', dpi=OUTPUT_DPI)
     fig_back.set_size_inches(A4_WIDTH_IN, A4_HEIGHT_IN, forward=True)
     pdf_combined.savefig(fig_back, dpi=OUTPUT_DPI)
     print(f"Saved back page {p_idx} to {output_back_pdf}")
