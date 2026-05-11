@@ -1,58 +1,344 @@
 <!DOCTYPE HTML>
-<!--
-	Stellar by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
-	<head>
-		<title>Generic - Stellar by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="../../assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
-	</head>
-	<body class="is-preload">
+    <head>
+        <title>Stars in Hobart | AEW12</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <link rel="stylesheet" href="../../assets/css/main.css" />
+        <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
+        <style>
+            #nav {
+                position: fixed !important;
+                left: 0 !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                width: 350px !important;
+                height: 100vh !important;
+                background: #140d2e !important;
+                z-index: 10000 !important;
+                overflow-y: auto !important;
+                padding: 4rem 1rem !important;
+                display: block !important;
+            }
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Stellar and Planetary Astronomy in Hobart 2026</h1>
-						<p>Stars in Hobart / Australian Exoplanet Workshop 12</p>
-					</header>
+            #wrapper {
+                padding-left: 350px !important;
+            }
 
-				<!-- Main -->
-					<div id="main">
+            #nav ul {
+                display: flex !important;
+                flex-direction: column !important;
+                text-align: left !important;
+                list-style: none !important;
+                padding: 0 !important;
+            }
 
-						<!-- Content -->
-							<section id="content" class="main">
-								<span class="image main"><img src="images/pic04.jpg" alt="" /></span>
-								<h2>Magna feugiat lorem</h2>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis fames ac ante ipsum primis in faucibus.</p>
-								<p>Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Consequat leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit enim turpis lorem ipsum dolor sit amet feugiat. Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet est velit quis lorem.</p>
-								<h2>Tempus veroeros</h2>
-								<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-							</section>
+            #nav ul li a {
+                display: block !important;
+                padding: 0.75rem 1rem !important;
+                text-align: left !important;
+                border-bottom: 0 !important;
+                color: rgba(255, 255, 255, 0.6) !important;
+            }
 
-					</div>
+            #nav ul li a.active {
+                background: rgba(255, 255, 255, 0.1) !important;
+                color: #ffffff !important;
+                border-left: 4px solid #ffffff !important;
+            }
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+            #nav.alt {
+                background-color: #140d2e !important;
+            }
 
-			</div>
+            #top-header {
+                text-align: center !important;
+                padding: 4rem 2rem !important;
+            }
 
-		<!-- Scripts -->
-			<script src="../../assets/js/jquery.min.js"></script>
-			<script src="../../assets/js/jquery.scrollex.min.js"></script>
-			<script src="../../assets/js/jquery.scrolly.min.js"></script>
-			<script src="../../assets/js/browser.min.js"></script>
-			<script src="../../assets/js/breakpoints.min.js"></script>
-			<script src="../../assets/js/util.js"></script>
-			<script src="../../assets/js/main.js"></script>
+            @media screen and (max-width: 980px) {
+                #nav {
+                    position: relative !important;
+                    width: 100% !important;
+                    height: auto !important;
+                    padding: 1rem !important;
+                }
+                #wrapper {
+                    padding-left: 0 !important;
+                }
+                #nav ul {
+                    flex-direction: row !important;
+                    flex-wrap: wrap !important;
+                    justify-content: center !important;
+                }
+            }
+            
+            /* Table formatting for schedule */
+            .table-wrapper table tbody tr td:first-child {
+                font-weight: bold;
+                width: 15%;
+            }
+        </style>
+    </head>
+    <body class="is-preload">
 
-	</body>
+        <div id="wrapper">
+
+            <header id="top-header" class="main">
+                <span class="logo"><img src="../../images/logo.svg" alt="" /></span>
+                <h1 style="font-size: 4.5rem; line-height: 1.2; font-weight: 900;"><strong>Stars in Hobart & AEW12</strong></h1>
+                <h2><strong>23–27 November 2026 | Hobart, Australia</strong></h2>
+                <p>The <strong>Stellar & Planetary Astronomy (SPA) Chapter</strong> presents<br />
+                    <strong>Stars in Hobart (SiH)</strong> and the <strong>12th Australian Exoplanet Workshop (AEW12)</strong>,<br />
+                    held as a back-to-back series in the heart of Tasmania.</p>
+            </header>
+
+            <nav id="nav">
+                <ul>
+                    <li><a href="#intro" class="active">HOME</a></li>
+                    <li><a href="#registration">REGISTRATION & ABSTRACTS</a></li>
+                    <li><a href="#logistics">LOGISTICS & VENUE INFO</a></li>
+                    <li><a href="#dinner">CONFERENCE DINNER</a></li>
+                    <li><a href="#program-stars">PROGRAM - STARS</a></li>
+                    <li><a href="#program-joint">PROGRAM - JOINT DAY</a></li>
+                    <li><a href="#program-planets">PROGRAM - PLANETS</a></li>
+                    <li><a href="#orgcommittee">ORGANISING COMMITTEE</a></li>
+                    <li><a href="#supported">SUPPORTED BY</a></li>
+                </ul> 
+            </nav>
+
+            <div id="main">
+
+                <section id="intro" class="main">
+                    <span class="image main"><img src="images/pic04.jpg" alt="Stars over Hobart" /></span>
+                    <header class="major">
+                        <h2>Stars in Hobart</h2>
+                    </header>
+                    <p>This meeting continues the <strong>Stars in…</strong> conference series, with topics including:</p>
+                    <ul>
+                        <li>Asteroseismology, Stellar activity, and Solar physics</li>
+                        <li>Clusters and stellar populations</li>
+                        <li>Stellar evolution and Supernovae</li>
+                    </ul>
+                    <h2>AEW12 – Australian Exoplanet Workshop</h2>
+                    <p>AEW12 will continue the Australian Exoplanet Workshop series, covering observational surveys, atmospheric characterisation, and host star properties.</p>
+                    <div class="box">
+                        <p><strong>Conference Schedule:</strong><br />
+                        <strong>Mon 23 – Tue 24 Nov:</strong> Stars in Hobart<br />
+                        <strong>Wed 25 Nov:</strong> Shared day on Star–Planet Interactions<br />
+                        <strong>Thu 26 – Fri 27 Nov:</strong> AEW12 – Exoplanet Workshop</p>
+                    </div>
+                </section>
+
+                <section id="registration" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Registration</h2>
+                        </header>
+                        <p>To secure your spot at the workshop in Hobart 2026, please complete the form below.</p>
+                        <ul class="actions">
+                            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScN3ljSp54R2fbfEuWmCLBQ05f7Y12IXoTmPoW0uRTgQSs1QQ/viewform?usp=dialog" class="button primary" target="_blank">Register Now</a></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="logistics" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Logistics & Venue</h2>
+                        </header>
+                        <p>The workshop will be held in Hobart, Tasmania. Detailed venue information will be announced shortly.</p>
+                    </div>
+                </section>
+
+                <section id="dinner" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Conference Dinner</h2>
+                        </header>
+                        <p>Information to be confirmed.</p>
+                    </div>
+                </section>
+
+                <section id="program-stars" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Program: Stars</h2>
+                            <p>Monday 23rd &amp; Tuesday 24th November</p>
+                        </header>
+                        <ul class="actions">
+                            <li><button class="button primary" onclick="showDay('mon')">Monday 23rd</button></li>
+                            <li><button class="button" onclick="showDay('tue')">Tuesday 24th</button></li>
+                        </ul>
+
+                        <div id="mon" class="schedule-day">
+                            <h4>Monday Schedule</h4>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
+                                    <tbody id="tbody-mon">
+                                        </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="tue" class="schedule-day" style="display:none;">
+                            <h4>Tuesday Schedule</h4>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
+                                    <tbody id="tbody-tue"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="program-joint" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Program: Joint Day</h2>
+                            <p>Wednesday 25th November</p>
+                        </header>
+                        <div id="wed" class="schedule-day">
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
+                                    <tbody id="tbody-wed"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="program-planets" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Program: Planets</h2>
+                            <p>Thursday 26th &amp; Friday 27th November</p>
+                        </header>
+                        <ul class="actions">
+                            <li><button class="button primary" onclick="showDay('thu')">Thursday 26th</button></li>
+                            <li><button class="button" onclick="showDay('fri')">Friday 27th</button></li>
+                        </ul>
+                        <div id="thu" class="schedule-day">
+                            <h4>Thursday Schedule</h4>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
+                                    <tbody id="tbody-thu"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="fri" class="schedule-day" style="display:none;">
+                            <h4>Friday Schedule</h4>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
+                                    <tbody id="tbody-fri"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="orgcommittee" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Organising Committee</h2>
+                        </header>
+                        <p>Information coming soon.</p>
+                    </div>
+                </section>
+
+                <section id="supported" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Supported by</h2>
+                        </header>
+                        <p>Information coming soon.</p>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer id="footer">
+                <p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
+
+        <script src="../../assets/js/jquery.min.js"></script>
+        <script src="../../assets/js/jquery.scrollex.min.js"></script>
+        <script src="../../assets/js/jquery.scrolly.min.js"></script>
+        <script src="../../assets/js/browser.min.js"></script>
+        <script src="../../assets/js/breakpoints.min.js"></script>
+        <script src="../../assets/js/util.js"></script>
+        <script src="../../assets/js/main.js"></script>
+
+		<script>
+			async function loadProgram() {
+				try {
+					// 1. Fetch the data from your separate file
+					const response = await fetch('program.json');
+					const data = await response.json();
+
+					// 2. Generate all the timetables
+					const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+					days.forEach(day => {
+						generateTimetable(`tbody-${day}`, 9, 16, data, day);
+					});
+				} catch (error) {
+					console.error("Error loading program data:", error);
+				}
+			}
+
+			function generateTimetable(tbodyId, startHour, endHour, programData, currentDay) {
+				const tbody = document.getElementById(tbodyId);
+				let html = "";
+
+				for (let h = startHour; h <= endHour; h++) {
+					for (let m = 0; m < 60; m += 15) {
+						if (h === endHour && m > 45) break;
+
+						let time = h.toString().padStart(2, '0') + ":" + m.toString().padStart(2, '0');
+						
+						// Find if there is a talk for this specific day and time
+						const talk = programData.find(item => item.day === currentDay && item.time === time);
+						
+						let title = talk ? talk.title : "";
+						let abstract = (talk && talk.pdf) ? `<a href="${talk.pdf}" class="icon solid fa-file-pdf" target="_blank"> View Abstract</a>` : "";
+
+						html += `<tr><td>${time}</td><td>${title}</td><td>${abstract}</td></tr>`;
+					}
+				}
+				tbody.innerHTML = html;
+			}
+
+			// Initialize on load
+			window.onload = loadProgram;
+
+			// Keep your showDay function exactly as it was
+			function showDay(dayId) {
+				var schedules = document.getElementsByClassName('schedule-day');
+				for (var i = 0; i < schedules.length; i++) {
+					if (dayId === 'mon' || dayId === 'tue') {
+						if (schedules[i].id === 'mon' || schedules[i].id === 'tue') schedules[i].style.display = 'none';
+					}
+					if (dayId === 'thu' || dayId === 'fri') {
+						if (schedules[i].id === 'thu' || schedules[i].id === 'fri') schedules[i].style.display = 'none';
+					}
+				}
+				document.getElementById(dayId).style.display = 'block';
+				
+				// Handle button active state
+				if (event && event.target) {
+					let buttons = event.target.parentElement.parentElement.querySelectorAll('.button');
+					buttons.forEach(btn => btn.classList.remove('primary'));
+					event.target.classList.add('primary');
+				}
+			}
+		</script>
+    </body>
 </html>
