@@ -1,0 +1,9 @@
+[
+    { "day": "mon", "time": "09:00", "title": "Registration", "pdf": "" },
+    { "day": "mon", "time": "09:15", "title": "Registration", "pdf": "" },
+    { "day": "mon", "time": "09:30", "title": "Welcome", "pdf": "" },
+    { "day": "mon", "time": "09:45", "title": "Talk 1 Title / Speaker 1", "pdf": "abstracts/test_abstract.pdf" },
+    { "day": "mon", "time": "10:00", "title": "Talk 2 Title / Speaker 2", "pdf": "abstracts/speaker_name.pdf" },
+    { "day": "tue", "time": "09:15", "title": "Talk 1 Title / Speaker 1", "pdf": "abstracts/speaker_name.pdf" },
+    { "day": "fri", "time": "09:30", "title": "Talk 2 Title / Speaker 2", "pdf": "abstracts/speaker_name.pdf" }
+]
