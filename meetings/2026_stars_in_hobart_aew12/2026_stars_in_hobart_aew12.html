@@ -8,6 +8,9 @@
         <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
 
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap');       
+
+        /* NAVIGATION BAR SETTINGS */
             #nav {
                 position: fixed !important;
                 left: 0 !important;
@@ -22,10 +25,7 @@
                 display: block !important;
             }
 
-            #wrapper {
-                padding-left: 350px !important;
-            }
-
+            /* Controls the layout and vertical stacking of the menu items list */
             #nav ul {
                 display: flex !important;
                 flex-direction: column !important;
@@ -34,157 +34,384 @@
                 padding: 0 !important;
             }
 
+            /* Controls the default look, spacing, and color of the menu links */
             #nav ul li a {
                 display: block !important;
-                padding: 0.75rem 1rem !important;
+                padding: 1.75rem 1rem !important;
                 text-align: left !important;
+                border: none !important;
                 border-bottom: 0 !important;
                 color: rgba(255, 255, 255, 0.6) !important;
+                font-size: 1.25rem !important;       
+                letter-spacing: 0.05em !important;   
+                position: relative !important; /* Base anchor for clean underlines */
             }
 
+            /* Force-kill the big background bubble and any template lines when hovering your mouse */
+            #nav ul li a:hover {
+                background: transparent !important;
+                background-color: transparent !important;
+                box-shadow: none !important;
+                color: #ffffff !important; 
+                border: none !important; 
+            }
+            #nav ul li a:hover::before,
+            #nav ul li a:hover::after {
+                background: transparent !important;
+                display: none !important;
+            }
+
+            /* Controls the highlighted look for the link of the page you are currently viewing */
             #nav ul li a.active {
-                background: rgba(255, 255, 255, 0.1) !important;
+                background: transparent !important; /* FIXED: Removed the faint bubble background */
+                background-color: transparent !important;
+                box-shadow: none !important;
                 color: #ffffff !important;
-                border-left: 4px solid #ffffff !important;
+                border: none !important;             /* FIXED: Slays the tall vertical line completely */
             }
 
+            /* Keeps the background color dark purple even if the template changes style on scroll */
             #nav.alt {
                 background-color: #140d2e !important;
             }
 
-            #top-header {
-                text-align: center !important;
-                padding: 4rem 2rem !important;
+
+        /* IMAGE SETTINGS */
+            /* Ensure the top hero image stretches fully and has no rounded corners at the top */
+            #wrapper > .image.main {
+                margin-bottom: 1rem !important;
             }
 
+            #wrapper > .image.main img {
+                border-radius: 0 !important; /* Makes it flush with the top of the page */
+                object-fit: cover;
+                max-height: 400px; /* Optional: Adjust this to control how 'tall' the banner is */
+                margin-bottom: 0rem !important; /* <--- THIS PUSHES CONTENT DOWN */
+            }
+
+        /* GENERAL PAGE LAYOUT */
+            #wrapper {
+                /* 1. Push the wrapper right so it clears the 350px fixed sidebar */
+                margin-left: 350px !important; 
+                margin-right: 0 !important;
+
+                /* 2. Force it to calculate its width as the total screen width minus the sidebar */
+                width: calc(100% - 350px) !important; 
+                max-width: none !important; /* Overrides any template max-widths restricting expansion */
+
+                /* 3. Add clean interior breathing room for your content */
+                /* padding-left: 3rem !important;
+                padding-right: 3rem !important; */
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                /* padding-top: 2rem !important;    Shrink or grow space ABOVE the title */
+                /* padding-bottom: 2rem !important; Shrink or grow space BELOW the title */
+            }
+
+        /* TEXT SETTINGS */
+            #top-header {
+                text-align: center !important;
+                padding-top: 0.5rem !important;    /* <--- ADJUST THIS for space above the title */
+                padding-bottom: 4rem !important;   /* Spacing below the subtitle */
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+            }
+
+            #top-header h1 {
+                font-family: 'Comfortaa', sans-serif !important;
+                font-weight: 1500 !important;           /* Makes the letters thin */
+                letter-spacing: 5px !important;         /* Creates that wide, breezy spacing */
+                text-transform: uppercase !important;   /* Optional: forces uppercase for a sleek look */
+                font-size: 2.8rem !important;
+                text-decoration: underline !important;  /* Adds the underline */
+                text-underline-offset: 12px;            /* Pushes the line down so it doesn't crowd your thin letters */
+                line-height: 1.9 !important; 
+            }
+ 
+            #top-header h2 {
+                letter-spacing: 2px !important;         /* Adjust this number to make the gap wider or narrower */
+            }
+
+            #intro h2, #intro h3 {
+            margin-top: 6rem !important; /* Increase this number to add more space */
+            }
+
+            /* Reduce the massive gap at the top of the Home/Intro section */
+            #intro {
+                padding-top: 1rem !important; 
+            }
+
+        /* MOBILE AND TABLET PAGE SETUP */
             @media screen and (max-width: 980px) {
+                
+                /* Unpins the sidebar from the left edge and turns it into a normal top navigation bar */
                 #nav {
                     position: relative !important;
                     width: 100% !important;
                     height: auto !important;
                     padding: 1rem !important;
                 }
+                
+                /* Resets the main page content to sit below the menu instead of hidden behind it, and adds safe padding for small screens */
                 #wrapper {
-                    padding-left: 0 !important;
+                    margin-left: 0 !important;
+                    width: 100% !important;
+                    padding-left: 1.5rem !important; 
+                    padding-right: 1.5rem !important;
                 }
+                
+                /* Changes the menu items from a vertical stack into a horizontal row that wraps cleanly onto new lines if needed */
                 #nav ul {
                     flex-direction: row !important;
                     flex-wrap: wrap !important;
                     justify-content: center !important;
                 }
             }
-            
-            /* Table formatting for schedule */
+
+        /* CONFERENCE SCHEDULE TABLE SETUP */
+            /* Targets only the very first column (the cell) in every row of your schedule tables */
             .table-wrapper table tbody tr td:first-child {
-                font-weight: bold;
-                width: 15%;
+                font-weight: bold; /* Makes the text (usually the time slot) stand out in bold */
+                width: 15%;        /* Locks the column width to exactly 15% of the screen so all times line up perfectly */
             }
+            
         </style>
     </head>
+
+    <!-- PAGE CONTENT -->
     <body class="is-preload">
 
         <div id="wrapper">
 
+            <!-- HEADER IMAGE -->
+            <div class="image main" style="margin: 0; padding: 0;">
+                <!-- <img src="images/website_images/hobart.jpg" alt="Stars over Hobart" style="width: 100%; border-radius: 0;" /> -->
+                <img src="images/website_images/hobart.jpg" alt="Stars over Hobart" style="position: relative; z-index: 2; padding: 0rem; border-radius: 10px;"/>
+            </div>
+
+            <!-- TITLE AND SUBTITLE -->
             <header id="top-header" class="main">
                 <span class="logo"><img src="../../images/logo.svg" alt="" /></span>
-                <h1 style="font-size: 4.5rem; line-height: 1.2; font-weight: 900;"><strong>Stars in Hobart & AEW12</strong></h1>
-                <h2><strong>23–27 November 2026 | Hobart, Australia</strong></h2>
-                <p>The <strong>Stellar & Planetary Astronomy (SPA) Chapter</strong> presents<br />
-                    <strong>Stars in Hobart (SiH)</strong> and the <strong>12th Australian Exoplanet Workshop (AEW12)</strong>,<br />
-                    held as a back-to-back series in the heart of Tasmania.</p>
+                <h1 style="font-size: 4.5rem; line-height: 1.2; font-weight: 900;"><strong>Stars in Hobart 2026 &<br />Australian Exoplanets Workshop 12</strong></h1>
+                <h2><strong>16–20 November 2026 | Hobart, Australia</strong></h2>
+                <!-- <p>The <strong>Stellar & Planetary Astronomy (SPA) Chapter</strong> presents <strong>Stars in Hobart (SiH)</strong> and the <strong>12th Australian Exoplanet Workshop (AEW12)</strong>,<br />
+                    held as a back-to-back series in the heart of <strong>Tasmania</strong>.</p> -->
             </header>
 
+            <!-- NAVIGATION BAR LINKS -->
+            <!-- <nav id="nav">
+                <ul>
+                    <li><a href="#intro" class="active">HOME</a></li>
+                    <li><a href="#registration">REGISTRATION & ABSTRACTS</a></li>
+                    <li><a href="#program-tbd">PROGRAM - TBD</a></li>
+                    <li><a href="#program-stars">PROGRAM - STARS</a></li> -->
+                    <!-- <li><a href="#program-joint">PROGRAM - JOINT DAY</a></li> -->
+                    <!-- <li><a href="#program-planets">PROGRAM - PLANETS</a></li> -->
+                    <!-- <li><a href="#logistics">LOGISTICS & VENUE INFO</a></li>
+                    <li><a href="#dinner">CONFERENCE DINNER</a></li>
+                    <li><a href="#orgcommittee">ORGANISING COMMITTEE</a></li>
+                    <li><a href="#supported">SUPPORTED BY</a></li>
+                </ul> 
+            </nav> -->
             <nav id="nav">
                 <ul>
                     <li><a href="#intro" class="active">HOME</a></li>
                     <li><a href="#registration">REGISTRATION & ABSTRACTS</a></li>
+                    <li><a href="#program">PROGRAM</a></li>
                     <li><a href="#logistics">LOGISTICS & VENUE INFO</a></li>
                     <li><a href="#dinner">CONFERENCE DINNER</a></li>
-                    <li><a href="#program-stars">PROGRAM - STARS</a></li>
-                    <li><a href="#program-joint">PROGRAM - JOINT DAY</a></li>
-                    <li><a href="#program-planets">PROGRAM - PLANETS</a></li>
                     <li><a href="#orgcommittee">ORGANISING COMMITTEE</a></li>
                     <li><a href="#supported">SUPPORTED BY</a></li>
                 </ul> 
             </nav>
 
+            <style>
+                /* 1. Strip away the background bubble color and kill any vertical lines from active links */
+                #nav ul li a.active,
+                #nav ul li a.active:hover,
+                #nav ul li a:focus {
+                    background: transparent !important;
+                    background-color: transparent !important;
+                    box-shadow: none !important;
+                    color: #ffffff !important; /* Forces text to stay bright when active */
+                    
+                    /* Completely kills any default vertical border lines from the template */
+                    border: none !important;
+                    border-left: 0 !important;
+                    border-right: 0 !important;
+                    
+                    position: relative !important; /* Anchors our custom underline layer */
+                }
+
+                /* 2. Build the floating horizontal underline underneath the text */
+                #nav ul li a.active::after {
+                    content: "" !important;
+                    position: absolute !important;
+                    
+                    /* Centers the underline horizontally without shifting the text alignment */
+                    left: -15px !important;
+                    right: 0 !important;
+                    margin: 0 auto !important;
+                    
+                    /* SPACING GAP: Controls the space between the text and the line */
+                    bottom: -15px !important; 
+                    
+                    /* LINE THICKNESS */
+                    height: 2px !important;
+                    
+                    /* LINE LENGTH: Change this percentage to make the line wider or narrower */
+                    width: 90% !important;
+                    
+                    /* LINE COLOR */
+                    background-color: #ffffff !important; 
+                }
+
+                /* 3. Disable the pseudo-element we used for the vertical line experiment */
+                #nav ul li a.active::before {
+                    display: none !important;
+                    content: none !important;
+                }
+
+                /* 4. Ensure the list container doesn't chop off our deep 30px underline */
+                #nav ul li {
+                    overflow: visible !important;
+                    background: transparent !important;
+                }
+            </style>
+
+            <!-- SECTIONS -->
             <div id="main">
 
+                <!-- INTRO / OVERVIEW SECTION -->
                 <section id="intro" class="main">
-                    <span class="image main"><img src="images/pic04.jpg" alt="Stars over Hobart" /></span>
-                    <header class="major">
-                        <h2>Stars in Hobart</h2>
+                   <header class="major">
+                        <h2>Series Overview: From Stars to Planets</h2>
                     </header>
-                    <p>This meeting continues the <strong>Stars in…</strong> conference series, with topics including:</p>
-                    <ul>
-                        <li>Asteroseismology, Stellar activity, and Solar physics</li>
-                        <li>Clusters and stellar populations</li>
-                        <li>Stellar evolution and Supernovae</li>
-                    </ul>
-                    <h2>AEW12 – Australian Exoplanet Workshop</h2>
-                    <p>AEW12 will continue the Australian Exoplanet Workshop series, covering observational surveys, atmospheric characterisation, and host star properties.</p>
-                    <div class="box">
-                        <p><strong>Conference Schedule:</strong><br />
-                        <strong>Mon 23 – Tue 24 Nov:</strong> Stars in Hobart<br />
-                        <strong>Wed 25 Nov:</strong> Shared day on Star–Planet Interactions<br />
-                        <strong>Thu 26 – Fri 27 Nov:</strong> AEW12 – Exoplanet Workshop</p>
+                    
+                    <p>The <strong>Stellar & Planetary Astronomy (SPA) Chapter</strong> presents <strong>Stars in Hobart</strong> and the <strong>12th Australian Exoplanet Workshop</strong> held as a week-long, back-to-back series in the heart of <strong>Tasmania</strong>. Mid-way through the week, both communities will converge for a combined program. Please see <a href="#schedule-overview" class="scrolly">the conference schedule below</a> for full program details.</p>
+
+                    <div class="box" style="border-left: 4px solid #5a43b5; padding-top: 4rem !important; padding-bottom: 1.5rem !important;">
+                        <h3 style="margin-top: -2.5rem !important; padding-top: 0 !important;">🌟 <strong>Stars in Hobart (SiH)</strong></h3>
+                        <p style="margin-bottom: 0.5rem !important;">Continuing the popular <em>"Stars in..."</em> conference series, this opening session focuses on core stellar astrophysics, tracking how stars evolve, operate, and cluster across generations.</p>
+                        <p style="margin-top: 1rem !important; margin-bottom: 0.25rem !important;">Core topics include:</p>
+
+                        <ul style="margin-top: 0 !important; padding-top: 0 !important;">                           
+                            <li>Asteroseismology, Stellar Activity, and Solar Physics</li>
+                            <li>Clusters and Stellar Populations</li>
+                            <li>Stellar Evolution and Supernovae</li>
+                        </ul>
                     </div>
+
+                    <div class="box" style="border-left: 4px solid #5a43b5; padding-top: 4rem !important; padding-bottom: 1.5rem !important;">
+                        <h3 style="margin-top: -2.5rem !important; padding-top: 0 !important;">🪐 <strong>Exoplanet Workshop (AEW12)</strong></h3>
+                        <p style="margin-bottom: 0.5rem !important;">Shifting focus to planetary systems, AEW12 highlights the rapidly growing field of exoplanetary science, tracing how we discover new worlds and analyse their characteristics.</p>
+                        <p style="margin-top: 1rem !important; margin-bottom: 0.25rem !important;">Core topics include:</p>
+                        <ul style="margin-top: 0 !important; padding-top: 0 !important;">
+                            <li>Observational Exoplanet Surveys & Instrumentation</li>
+                            <li>Atmospheric Characterisation of Distant Worlds</li>
+                            <li>Host Star Properties & Radial Velocity Refinements</li>
+                        </ul>
+                    </div>
+
+                    <!-- <h3>The Bridge: Star-Planet Interactions</h3>
+                    <p>Mid-way through the week (Wednesday, 18 November), both communities will converge for a combined program dedicated entirely to <strong>Star-Planet Interactions</strong>—exploring how host stars directly shape the habitability, atmospheres, and survival of their planetary companions.</p> -->
+
                 </section>
 
+                <!-- REGISTRATION -->
                 <section id="registration" class="main">
                     <div class="content">
+                        
                         <header class="major">
-                            <h2>Registration</h2>
+                            <h2>Registration & Abstracts</h2>
                         </header>
-                        <p>To secure your spot at the workshop in Hobart 2026, please complete the form below.</p>
-                        <ul class="actions">
-                            <li><a href="https://docs.google.com/forms/d/e/1FAIpQLScN3ljSp54R2fbfEuWmCLBQ05f7Y12IXoTmPoW0uRTgQSs1QQ/viewform?usp=dialog" class="button primary" target="_blank">Register Now</a></li>
+                        
+                        <p>Please review the key dates below and complete the official registration form to secure your spot.</p>
+
+                        <div class="row gtr-150">
+                            
+                            <div class="col-6 col-12-medium">
+                                <h3>Key Dates & Deadlines</h3>
+                                <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;"><strong>Registration Deadline:</strong> [Insert Date Here]</p>
+                                <p style="margin-bottom: 0.5rem !important;"><strong>Abstract Submission Closes:</strong> [Insert Date Here]</p>
+                                <p style="margin-top: 0 !important; margin-bottom: 1.5rem !important;"><strong>Conference Dates:</strong> 16 – 20 November 2026</p>
+                                
+                                <h3 style="margin-top: 2.5rem !important;">Registration Fees</h3>
+                                <p style="color: #415fd7 !important; font-weight: bold;">Standard Registration: $0 (Free)</p>
+                                <p style="font-style: italic; margin-top: -0.35rem !important;">There are no registration fees for this conference series.</p>
+                            </div>
+                            
+                            <div class="col-6 col-12-medium">
+                                <h3>Call for Abstracts</h3>
+                                <p>We welcome abstract submissions for oral presentations covering core stellar astrophysics, exoplanet discoveries, host star characterisation, star-planet interactions, and more.</p>
+                                <p style="font-style: italic; margin-top: 1rem !important;"><strong>Note:</strong> Contributing a talk or poster is completely optional. You are more than welcome to register and attend as a non-presenting participant!</p>
+                                <p>If you do wish to present, you can submit your title and abstract directly through the main registration form linked below.</p>
+
+                            </div>
+                            
+                        </div>
+
+                        <ul class="actions special" style="justify-content: center !important; margin-top: 2rem !important;">
+                            <li>
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLScN3ljSp54R2fbfEuWmCLBQ05f7Y12IXoTmPoW0uRTgQSs1QQ/viewform?usp=dialog" 
+                                class="button primary large" 
+                                target="_blank" 
+                                style="padding: 0 3.5rem; height: 3.5rem; line-height: 3.5rem; font-size: 1.1rem; letter-spacing: 2px;">
+                                Open Registration Form
+                                </a>
+                            </li>
                         </ul>
+                        
                     </div>
                 </section>
 
-                <section id="logistics" class="main">
+                <!-- CONFERENCE SCHEDULE -->
+                <section id="program" class="main">
                     <div class="content">
+                        
                         <header class="major">
-                            <h2>Logistics & Venue</h2>
+                            <h2>Conference Program</h2>
                         </header>
-                        <p>The workshop will be held in Hobart, Tasmania. Detailed venue information will be announced shortly.</p>
-                    </div>
-                </section>
+                        
+                        <div class="box">
+                            <p style="margin-bottom: 0.5rem !important;"><strong><u>Timeline At-a-Glance</u></strong></p>
+                            <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;">
+                                <strong>Mon 16 – Tue 17 Nov:</strong> Stars in Hobart<br />
+                                <strong>Wed 18 Nov:</strong> Shared day on Star–Planet Interactions<br />
+                                <strong>Thu 19 – Fri 20 Nov:</strong> AEW12 – Exoplanet Workshop
+                            </p>
+                            <p id="tbd-notice" style="margin-top: 1.5rem !important; font-style: italic; color: #999999 !important;">
+                                Full detailed program is currently TBD and will be posted shortly.
+                            </p>
+                        </div>
 
-                <section id="dinner" class="main">
-                    <div class="content">
-                        <header class="major">
-                            <h2>Conference Dinner</h2>
-                        </header>
-                        <p>Information to be confirmed.</p>
-                    </div>
-                </section>
-
-                <section id="program-stars" class="main">
-                    <div class="content">
-                        <header class="major">
-                            <h2>Program: Stars</h2>
-                            <p>Monday 23rd &amp; Tuesday 24th November</p>
-                        </header>
-                        <ul class="actions">
-                            <li><button class="button primary" onclick="showDay('mon')">Monday 23rd</button></li>
-                            <li><button class="button" onclick="showDay('tue')">Tuesday 24th</button></li>
+                        <!-- <ul class="actions" style="margin-bottom: 2rem !important;">
+                            <li><button id="btn-mon" class="button primary" onclick="showDay('mon')">Mon 16 Nov</button></li>
+                            <li><button id="btn-tue" class="button" onclick="showDay('tue')">Tue 17 Nov</button></li>
+                            <li><button id="btn-wed" class="button" onclick="showDay('wed')">Wed 18 Nov</button></li>
+                            <li><button id="btn-thu" class="button" onclick="showDay('thu')">Thu 19 Nov</button></li>
+                            <li><button id="btn-fri" class="button" onclick="showDay('fri')">Fri 20 Nov</button></li>
+                        </ul> -->
+                        <ul class="actions" style="margin-bottom: 2rem !important;">
+                            <li><button id="btn-mon" class="button primary" onclick="showDay('mon')" disabled>Mon 16 Nov</button></li>
+                            <li><button id="btn-tue" class="button" onclick="showDay('tue')" disabled>Tue 17 Nov</button></li>
+                            <li><button id="btn-wed" class="button" onclick="showDay('wed')" disabled>Wed 18 Nov</button></li>
+                            <li><button id="btn-thu" class="button" onclick="showDay('thu')" disabled>Thu 19 Nov</button></li>
+                            <li><button id="btn-fri" class="button" onclick="showDay('fri')" disabled>Fri 20 Nov</button></li>
                         </ul>
 
-                        <div id="mon" class="schedule-day">
-                            <h4>Monday Schedule</h4>
+                        <div id="mon" class="schedule-day" style="display:none;">
+                            <h4>Monday Schedule — Stars in Hobart</h4>
                             <div class="table-wrapper">
                                 <table>
                                     <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
-                                    <tbody id="tbody-mon">
-                                        </tbody>
+                                    <tbody id="tbody-mon"></tbody>
                                 </table>
                             </div>
                         </div>
 
                         <div id="tue" class="schedule-day" style="display:none;">
-                            <h4>Tuesday Schedule</h4>
+                            <h4>Tuesday Schedule — Stars in Hobart</h4>
                             <div class="table-wrapper">
                                 <table>
                                     <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
@@ -192,16 +419,9 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </section>
 
-                <section id="program-joint" class="main">
-                    <div class="content">
-                        <header class="major">
-                            <h2>Program: Joint Day</h2>
-                            <p>Wednesday 25th November</p>
-                        </header>
-                        <div id="wed" class="schedule-day">
+                        <div id="wed" class="schedule-day" style="display:none;">
+                            <h4>Wednesday Schedule — Joint Day</h4>
                             <div class="table-wrapper">
                                 <table>
                                     <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
@@ -209,21 +429,9 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                </section>
 
-                <section id="program-planets" class="main">
-                    <div class="content">
-                        <header class="major">
-                            <h2>Program: Planets</h2>
-                            <p>Thursday 26th &amp; Friday 27th November</p>
-                        </header>
-                        <ul class="actions">
-                            <li><button class="button primary" onclick="showDay('thu')">Thursday 26th</button></li>
-                            <li><button class="button" onclick="showDay('fri')">Friday 27th</button></li>
-                        </ul>
-                        <div id="thu" class="schedule-day">
-                            <h4>Thursday Schedule</h4>
+                        <div id="thu" class="schedule-day" style="display:none;">
+                            <h4>Thursday Schedule — AEW12 Workshop</h4>
                             <div class="table-wrapper">
                                 <table>
                                     <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
@@ -231,8 +439,9 @@
                                 </table>
                             </div>
                         </div>
+
                         <div id="fri" class="schedule-day" style="display:none;">
-                            <h4>Friday Schedule</h4>
+                            <h4>Friday Schedule — AEW12 Workshop</h4>
                             <div class="table-wrapper">
                                 <table>
                                     <thead><tr><th>Time</th><th>Presentation Title / Speaker</th><th>Abstract</th></tr></thead>
@@ -240,35 +449,140 @@
                                 </table>
                             </div>
                         </div>
+
                     </div>
                 </section>
 
+                <!-- LOGISTICS -->
+                <section id="logistics" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Logistics & Venue</h2>
+                        </header>
+                        <p>The joint workshops will be held in <strong>Hobart, Tasmania</strong>. Detailed local and venue information will be announced shortly.</p>
+                        
+                        <div class="row gtr-150" style="margin-top: 1.5rem !important;">
+                            
+                            <div class="col-6 col-12-medium">
+                                <h3>The Venue</h3>
+                                <p style="font-weight: bold; margin-bottom: 0.25rem !important;">[Insert Institution/Building Name Here]</p>
+                                <p style="margin-top: 0 !important; margin-bottom: 1.5rem !important; color: #999999 !important;">[Insert Street Address, Hobart TAS 7000]</p>
+                            </div>
+                            
+                            <div class="col-6 col-12-medium">
+                                <div class="box-map" style="max-width: 100%;">
+                                    <a href="https://www.google.com/maps/place/Hobart+TAS+7000/@-42.8835955,147.3224709,16z/data=!4m15!1m8!3m7!1s0xaa6e7584e52ccfed:0x503c94dd0de1530!2sHobart+TAS+7000!3b1!8m2!3d-42.8826055!4d147.3257197!16zL20vMDNramg!3m5!1s0xaa6e7584e52ccfed:0x503c94dd0de1530!8m2!3d-42.8826055!4d147.3257197!16zL20vMDNramg?entry=ttu&g_ep=EgoyMDI2MDUyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="border-bottom: none !important;">
+                                        <span class="image fit" style="margin: 0 !important;">
+                                            <img src="images/placeholder_map.png" alt="Conference Location Map" style="border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.15); transition: opacity 0.2s ease;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1.0'" />
+                                        </span>
+                                    </a>
+                                    <p style="font-size: 0.85rem; color: #999999; margin-top: 0.5rem; text-align: right; font-style: italic;">
+                                        📍 Click the map to open live Google Maps directions.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row gtr-150" style="margin-top: 2rem !important;">
+                            <div class="col-12">
+                                <h3>Travel & Accommodation</h3>
+                                <p><strong>By Air:</strong> Hobart Airport (HBA) is located approximately a 20-minute drive from the city center, with regular flights connecting from all major Australian capital cities.</p>
+                                <p style="margin-bottom: 0 !important;"><strong>Lodging:</strong> We recommend booking accommodation within the Hobart CBD or waterfront areas for easy access to the venue.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <!-- DINNER -->
+                <section id="dinner" class="main">
+                    <div class="content">
+                        <header class="major">
+                            <h2>Conference Dinner</h2>
+                        </header>
+                        <p>A dedicated social dinner will be held mid-week to celebrate both communities coming together for the joint program day.</p>
+                        
+                        <div class="box" style="margin-top: 2rem !important;">
+                            <p style="margin-bottom: 0.5rem !important;"><strong><u>Dinner Details</u></strong></p>
+                            <ul style="margin-top: 0 !important; padding-top: 0 !important; margin-bottom: 1rem !important;">
+                                <li><strong>Date & Time:</strong> Wednesday 18 November 2026 (Evening)</li>
+                                <li><strong>Location:</strong> [Insert Venue Name / TBD]</li>
+                                <li><strong>Ticketing:</strong> [Insert price or note if it's included, e.g., Ticketing details and dietary requirement collection will be updated shortly.]</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ORGANISING COMMITTEE -->
                 <section id="orgcommittee" class="main">
                     <div class="content">
                         <header class="major">
                             <h2>Organising Committee</h2>
                         </header>
-                        <p>Information coming soon.</p>
+                        <p>This workshop series is put together by a joint team across the regional stellar and exoplanetary science communities.</p>
+                        
+                        <div class="row gtr-150" style="margin-top: 1.5rem !important;">
+                            <div class="col-6 col-12-medium">
+                                <h3>Scientific Organising Committee (SOC)</h3>
+                                <ul style="line-height: 1.8rem !important;">
+                                    <li>[Committee Member Name] — <span style="color: #999999;">[Institution]</span></li>
+                                    <li>[Committee Member Name] — <span style="color: #999999;">[Institution]</span></li>
+                                    <li>[Committee Member Name] — <span style="color: #999999;">[Institution]</span></li>
+                                    <li>[Committee Member Name] — <span style="color: #999999;">[Institution]</span></li>
+                                </ul>
+                            </div>
+                            
+                            <div class="col-6 col-12-medium">
+                                <h3>Local Organising Committee (LOC)</h3>
+                                <ul style="line-height: 1.8rem !important;">
+                                    <li>[Local Organizer Name] — <span style="color: #999999;">[Institution]</span></li>
+                                    <li>[Local Organizer Name] — <span style="color: #999999;">[Institution]</span></li>
+                                    <li>[Local Organizer Name] — <span style="color: #999999;">[Institution]</span></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
+                <!-- SUPPORT -->
                 <section id="supported" class="main">
                     <div class="content">
                         <header class="major">
-                            <h2>Supported by</h2>
+                            <h2>Supported By</h2>
                         </header>
-                        <p>Information coming soon.</p>
+                        <p>We gratefully acknowledge the support of our partner organizations and institutions who make this meeting possible.</p>
+                        
+                        <div class="row gtr-150 style="margin-top: 2rem !important; align-items: center; justify-content: center; text-align: center;">
+                            <div class="col-4 col-12-small">
+                                <div style="border: 1px dashed rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 4px; color: #999999;">
+                                    [Sponsor / Institution Logo 1]
+                                </div>
+                            </div>
+                            <div class="col-4 col-12-small">
+                                <div style="border: 1px dashed rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 4px; color: #999999;">
+                                    [Sponsor / Institution Logo 2]
+                                </div>
+                            </div>
+                            <div class="col-4 col-12-small">
+                                <div style="border: 1px dashed rgba(255, 255, 255, 0.2); padding: 2rem; border-radius: 4px; color: #999999;">
+                                    [Sponsor / Institution Logo 3]
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
             </div>
 
-            <footer id="footer">
+            <!-- FOOTER FOR THE PAGE / COPYRIGHT -->
+            <!-- <footer id="footer">
                 <p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-            </footer>
+            </footer>  -->
 
-        </div>
+         </div>
 
+        <!-- SCRIPTS -->
         <script src="../../assets/js/jquery.min.js"></script>
         <script src="../../assets/js/jquery.scrollex.min.js"></script>
         <script src="../../assets/js/jquery.scrolly.min.js"></script>
@@ -277,68 +591,144 @@
         <script src="../../assets/js/util.js"></script>
         <script src="../../assets/js/main.js"></script>
 
-		<script>
-			async function loadProgram() {
-				try {
-					// 1. Fetch the data from your separate file
-					const response = await fetch('program.json');
-					const data = await response.json();
+        <script>
+            async function loadProgram() {
+                try {
+                    // 1. Fetch the data from your separate file
+                    const response = await fetch('program.json');
+                    const data = await response.json();
 
-					// 2. Generate all the timetables
-					const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
-					days.forEach(day => {
-						generateTimetable(`tbody-${day}`, 9, 16, data, day);
-					});
-				} catch (error) {
-					console.error("Error loading program data:", error);
-				}
-			}
+                    // 2. Generate all the timetables
+                    const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+                    days.forEach(day => {
+                        generateTimetable(`tbody-${day}`, 9, 16, data, day);
+                    });
+                    
+                    // 3. Fix the navigation highlight / scroll cutoff mismatch safely
+                    applyNavScrollFix();
 
-			function generateTimetable(tbodyId, startHour, endHour, programData, currentDay) {
-				const tbody = document.getElementById(tbodyId);
-				let html = "";
+                } catch (error) {
+                    console.error("Error loading program data:", error);
+                    // Fallback fix execution if data fetch fails
+                    applyNavScrollFix();
+                }
+            }
 
-				for (let h = startHour; h <= endHour; h++) {
-					for (let m = 0; m < 60; m += 15) {
-						if (h === endHour && m > 45) break;
+            function generateTimetable(tbodyId, startHour, endHour, programData, currentDay) {
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return; // Guard clause in case containers are hidden/absent
+                let html = "";
 
-						let time = h.toString().padStart(2, '0') + ":" + m.toString().padStart(2, '0');
-						
-						// Find if there is a talk for this specific day and time
-						const talk = programData.find(item => item.day === currentDay && item.time === time);
-						
-						let title = talk ? talk.title : "";
-						let abstract = (talk && talk.pdf) ? `<a href="${talk.pdf}" class="icon solid fa-file-pdf" target="_blank"> View Abstract</a>` : "";
+                for (let h = startHour; h <= endHour; h++) {
+                    for (let m = 0; m < 60; m += 15) {
+                        if (h === endHour && m > 45) break;
 
-						html += `<tr><td>${time}</td><td>${title}</td><td>${abstract}</td></tr>`;
-					}
-				}
-				tbody.innerHTML = html;
-			}
+                        let time = h.toString().padStart(2, '0') + ":" + m.toString().padStart(2, '0');
+                        
+                        // Find if there is a talk for this specific day and time
+                        const talk = programData.find(item => item.day === currentDay && item.time === time);
+                        
+                        let title = talk ? talk.title : "";
+                        let abstract = (talk && talk.pdf) ? `<a href="${talk.pdf}" class="icon solid fa-file-pdf" target="_blank"> View Abstract</a>` : "";
 
-			// Initialize on load
-			window.onload = loadProgram;
+                        html += `<tr><td>${time}</td><td>${title}</td><td>${abstract}</td></tr>`;
+                    }
+                }
+                tbody.innerHTML = html;
+            }
 
-			// Keep your showDay function exactly as it was
-			function showDay(dayId) {
-				var schedules = document.getElementsByClassName('schedule-day');
-				for (var i = 0; i < schedules.length; i++) {
-					if (dayId === 'mon' || dayId === 'tue') {
-						if (schedules[i].id === 'mon' || schedules[i].id === 'tue') schedules[i].style.display = 'none';
-					}
-					if (dayId === 'thu' || dayId === 'fri') {
-						if (schedules[i].id === 'thu' || schedules[i].id === 'fri') schedules[i].style.display = 'none';
-					}
-				}
-				document.getElementById(dayId).style.display = 'block';
-				
-				// Handle button active state
-				if (event && event.target) {
-					let buttons = event.target.parentElement.parentElement.querySelectorAll('.button');
-					buttons.forEach(btn => btn.classList.remove('primary'));
-					event.target.classList.add('primary');
-				}
-			}
-		</script>
+            // New Helper function to adjust navigation scroll-spy offset calculations
+            function applyNavScrollFix() {
+                // Re-configure Scrolly (The smooth scrolling engine) to stop ~60px early
+                if ($.fn.scrolly) {
+                    $('.scrolly, #nav a').scrolly({
+                        speed: 1000,
+                        offset: 60 // Pushes target window down 60px so the fixed header doesn't block text
+                    });
+                }
+
+                // Re-configure Scrollex (The highlight tripwire tracker engine)
+                if ($.fn.scrollex && $('#nav').length > 0) {
+                    $('section.main').each(function() {
+                        var $this = $(this);
+                        
+                        // Remove template baseline tracking defaults
+                        $this.unscrollex(); 
+                        
+                        // Re-apply tracking targets with custom top-to-middle boundaries
+                        $this.scrollex({
+                            mode: 'middle', // Changes switch trigger from absolute top edge to mid-viewport view
+                            initialize: function() { $this.addClass('inactive'); },
+                            terminate: function() { $this.removeClass('inactive'); },
+                            enter: function() {
+                                $this.removeClass('inactive');
+                                var $a = $('#nav a[href="#' + $this.attr('id') + '"]');
+                                $('#nav a').removeClass('active');
+                                $a.addClass('active');
+                            }
+                        });
+                    });
+                }
+            }
+
+            // Initialize on load
+            window.onload = loadProgram;
+
+            // Keep your showDay function exactly as it was
+            function showDay(selectedDay) {
+                const days = ['mon', 'tue', 'wed', 'thu', 'fri'];
+                
+                days.forEach(day => {
+                    const scheduleBlock = document.getElementById(day);
+                    const actionButton = document.getElementById(`btn-${day}`);
+                    
+                    if (day === selectedDay) {
+                        // Show the active day table wrapper
+                        if (scheduleBlock) scheduleBlock.style.display = 'block';
+                        // Make button active (Primary accent styling)
+                        if (actionButton) actionButton.classList.add('primary');
+                    } else {
+                        // Hide all other day container elements
+                        if (scheduleBlock) scheduleBlock.style.display = 'none';
+                        // Revert non-active buttons to basic styling
+                        if (actionButton) actionButton.classList.remove('primary');
+                    }
+                });
+            }       
+        </script>
+
+        <style>
+            #footer {
+                display: block !important;
+                background-color: #000000 !important;
+                padding: 1.5rem 0 !important;
+                
+                /* THE FIX: Remove margin-left and use padding-left instead */
+                margin: 0 !important; 
+                padding-left: 350px !important; /* Matches your sidebar width exactly */
+                
+                box-sizing: border-box !important; /* Keeps the math perfect */
+                text-align: center !important;
+            }
+
+            #footer p.copyright {
+                color: rgba(255, 255, 255, 0.6) !important;
+                margin: 0 !important;
+                text-align: center !important;
+                font-size: 0.9rem !important;
+                display: block !important;
+            }
+            
+            #footer p.copyright a {
+                color: #ffffff !important; /* Bright white links */
+                text-decoration: underline !important;
+            }
+        </style>
+
+            <footer id="footer">
+                <p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+        
+
     </body>
 </html>
