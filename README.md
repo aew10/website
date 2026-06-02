@@ -1,1 +1,1 @@
-Source code for exoplanets.au
+Source Code for ASA's Stellar and Planetary Astronomy (SPA) Chapter Website
