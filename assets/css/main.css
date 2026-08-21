@@ -3785,3 +3785,25 @@ input, select, textarea {
 		}
 
 
+.stellar-topics,
+.planetary-topics {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.stellar-topics li,
+.planetary-topics li {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.stellar-topics li::before {
+    content: "🌟";
+    margin-right: 0.5rem;
+}
+
+.planetary-topics li::before {
+    content: "🪐";
+    margin-right: 0.5rem;
+}
