@@ -174,6 +174,26 @@
                 font-weight: bold; /* Makes the text (usually the time slot) stand out in bold */
                 width: 15%;        /* Locks the column width to exactly 15% of the screen so all times line up perfectly */
             }
+
+            .program-pdf-scroll {
+                    width: 100%;
+                    max-width: 100%;
+                    overflow-x: auto;
+                    overflow-y: hidden;
+                    -webkit-overflow-scrolling: touch;
+                    border: 1px solid #ddd;
+                    border-radius: 5px;
+                }
+
+                .program-pdf-scroll iframe {
+                    display: block;
+                    width: 100%;
+                    min-width: 1100px;
+                    height: 80vh;
+                    min-height: 700px;
+                    border: none;
+                    background: white;
+                }
             
         </style>
     </head>
@@ -204,7 +224,8 @@
             <nav id="nav">
                 <ul>
                     <li><a href="#intro" class="active">HOME</a></li>
-                    <li><a href="#registration">REGISTRATION &amp; ABSTRACTS</a></li>
+                    <!-- <li><a href="#registration">REGISTRATION &amp; ABSTRACTS</a></li> -->
+                    <li><a href="#registration">REGISTRATION</a></li>
                     <li><a href="#program">PROGRAM</a></li>
                     <li><a href="#logistics">LOGISTICS &amp; VENUE INFO</a></li>
                     <li><a href="#dinner">CONFERENCE DINNER</a></li>
@@ -310,81 +331,57 @@
                 <!-- REGISTRATION -->
                 <section id="registration" class="main">
                     <div class="content">
-
                         <header class="major">
-                            <h2>Registration &amp; Abstracts</h2>
+                            <h2>Registration</h2>
                         </header>
 
-
-                        <p>
-                            Please review the key dates below and complete the official registration form to secure your spot.
-                        </p>
+                        <p><strong>Registration remains open until 31 October 2026.</strong>
+                            Attendance is free. Abstract submission is now closed, and all talk slots have been allocated.
+                            We welcome registrations from both confirmed speakers and participants who wish to attend without presenting.</p>
 
                         <div class="row gtr-150">
-
-                            <!-- KEY DATES -->
                             <div class="col-6 col-12-medium">
-
                                 <h3>Key Dates &amp; Deadlines</h3>
-
                                 <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;">
-                                    <strong>Abstract Submission Deadline:</strong> 18 September
+                                    <strong>Registration Deadline:</strong> 31 October 2026
                                 </p>
-
                                 <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;">
-                                    <strong>Registration Deadline:</strong> 31 October
+                                    <strong>Abstract Submissions:</strong> Closed (18 September 2026)
                                 </p>
-
                                 <p style="margin-top: 0 !important; margin-bottom: 1.5rem !important;">
-                                    <strong>Conference Dates:</strong> 16 – 20 November 2026
+                                    <strong>Conference Dates:</strong> 16–20 November 2026
                                 </p>
 
-                                <h3 style="margin-top: 2.5rem !important;">
-                                    Registration Fees
-                                </h3>
-
+                                <h3 style="margin-top: 2.5rem !important;">Registration Fees</h3>
                                 <p style="margin-top: -0.5rem !important; color: #415fd7 !important; font-weight: bold;">
                                     Standard Registration: Free
                                 </p>
-
                                 <p style="font-style: italic; margin-top: -2.0rem !important;">
                                     There are no registration fees for this conference series.
                                 </p>
-
                             </div>
 
-                            <!-- ABSTRACTS -->
                             <div class="col-6 col-12-medium">
-
-                                <h3>Call for Abstracts</h3>
-
-                                <p>
-                                    We welcome abstract submissions for oral presentations across the broad and interconnected fields of stellar and planetary astrophysics.
-                                </p>
-
-                                <p>
-                                    If you would like to present, you can submit your title and abstract directly through the registration form linked below.
-                                </p>
-
-                                <p style="font-style: italic; margin-top: 1rem !important;">
-                                    <strong>Note:</strong> Contributing a talk is completely optional. You are more than welcome to register and attend as a non-presenting participant!
-                                </p>
-
+                                <h3>Abstracts &amp; Presentations</h3>
+                                <!-- <p>We welcome abstract submissions for oral presentations across the broad and interconnected fields of stellar and planetary astrophysics.</p>
+                                <p>If you would like to present, you can submit your title and abstract directly through the registration form linked below.</p>
+                                <p style="font-style: italic; margin-top: 1rem !important;"><strong>Note:</strong> Contributing a talk is completely optional. You are more than welcome to register and attend as a non-presenting participant!</p> -->
+                                <p><strong>Abstract submission has closed.</strong> All oral presentation slots
+                                    have been allocated, so we are no longer accepting new talk proposals.</p>
+                                <p>You can still register to attend without presenting.
+                                    Confirmed speakers who have not yet registered should also complete the registration form.</p>
                             </div>
-
                         </div>
 
                         <ul class="actions special" style="justify-content: center !important; margin-top: 2rem !important;">
                             <li>
                                 <a href="https://docs.google.com/forms/d/e/1FAIpQLScN3ljSp54R2fbfEuWmCLBQ05f7Y12IXoTmPoW0uRTgQSs1QQ/viewform?usp=dialog"
-                                class="button primary large"
-                                target="_blank"
-                                style="padding: 0 3.5rem; height: 3.5rem; line-height: 3.5rem; font-size: 1.1rem; letter-spacing: 2px;">
-                                    Open Registration Form
+                                   class="button primary large" target="_blank" rel="noopener"
+                                   style="padding: 0 3.5rem; height: 3.5rem; line-height: 3.5rem; font-size: 1.1rem; letter-spacing: 2px;">
+                                    Open Registration Form (Abstract Submission Closed)
                                 </a>
                             </li>
                         </ul>
-
                     </div>
                 </section>
 
@@ -418,26 +415,23 @@
                             </div>
 
                         </div>
-                                                
-                        <div class="box">
-                            <p style="margin-bottom: 0.5rem !important;"><strong><u>Timeline At-a-Glance</u></strong></p>
-                            <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;">
-                                <strong>Mon 16 Nov:</strong> Start 11am <br />
-                                <strong>Wed 19 Nov:</strong> Conference Dinner <br />
-                                <strong>Fri 20 Nov:</strong> Close before 3pm <br />
-                            </p>
-                            <p id="tbd-notice" style="margin-top: 1.5rem !important; font-style: italic; color: #999999 !important;">
-                                Full detailed program is currently TBD and will be posted shortly.
-                            </p>
+
+                        <div class="program-pdf-scroll" role="region" aria-label="Conference program PDF viewer" tabindex="0">
+                            <iframe src="images/spa_hobart_program_v261009.pdf" title="Stars &amp; Planets in Hobart 2026 — conference program"
+                                    loading="lazy">
+                                <p>Your browser cannot display the PDF inline.
+                                   <a href="images/spa_hobart_program_v261009.pdf">Open the conference program (PDF)</a>.</p>
+                            </iframe>
                         </div>
 
-                        <!-- <ul class="actions" style="margin-bottom: 2rem !important;">
-                            <li><button id="btn-mon" class="button primary" onclick="showDay('mon')">Mon 16 Nov</button></li>
-                            <li><button id="btn-tue" class="button" onclick="showDay('tue')">Tue 17 Nov</button></li>
-                            <li><button id="btn-wed" class="button" onclick="showDay('wed')">Wed 18 Nov</button></li>
-                            <li><button id="btn-thu" class="button" onclick="showDay('thu')">Thu 19 Nov</button></li>
-                            <li><button id="btn-fri" class="button" onclick="showDay('fri')">Fri 20 Nov</button></li>
-                        </ul> -->
+                        <p style="margin-top: 1rem !important;">
+                            <a href="images/spa_hobart_program_v261009.pdf" target="_blank" rel="noopener">Open the full program in a new tab (PDF)</a>
+                            &nbsp;&middot;&nbsp;
+                            <a href="images/spa_hobart_program_v261009.pdf" download>Download the program (PDF)</a>
+                        </p>
+
+                        <!-- OLD SCRIPT FOR INTERACTIVE PROGRAM BELOW -->
+                        <!-- 
                         <ul class="actions" style="margin-bottom: 2rem !important;">
                             <li><button id="btn-mon" class="button primary" onclick="showDay('mon')" disabled>Mon 16 Nov</button></li>
                             <li><button id="btn-tue" class="button" onclick="showDay('tue')" disabled>Tue 17 Nov</button></li>
@@ -454,7 +448,6 @@
                                     <tbody id="tbody-mon"></tbody>
                                 </table>
                             </div>
-                        </div>
 
                         <div id="tue" class="schedule-day" style="display:none;">
                             <h4>Tuesday Schedule</h4>
@@ -495,6 +488,7 @@
                                 </table>
                             </div>
                         </div>
+                        </div> -->
 
                     </div>
                 </section>
@@ -774,7 +768,8 @@
         <script src="../../assets/js/util.js"></script>
         <script src="../../assets/js/main.js"></script>
 
-        <script>
+        <!-- OLD SCRIPT FOR INTERACTIVE PROGRAM BELOW -->
+        <!-- <script>
             async function loadProgram() {
                 try {
                     // 1. Fetch the data from your separate file
@@ -878,7 +873,7 @@
                     }
                 });
             }       
-        </script>
+        </script> -->
 
         <style>
             #footer {
@@ -906,12 +901,13 @@
                 color: #ffffff !important; /* Bright white links */
                 text-decoration: underline !important;
             }
+
         </style>
 
-            <footer id="footer">
-                <p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-            </footer>
-        
+        <footer id="footer">
+            <p class="copyright">&copy; ASA SPA Chapter. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+        </footer>
+    
 
     </body>
 </html>
