@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Stars &amp; Planets in Ōtautahi Christchurch, 22–26 November 2027, at the University of Canterbury (Te Whare Wānanga o Waitaha)." />
+  <title>Stars &amp; Planets in Ōtautahi Christchurch | 22–26 November 2027</title>
+
+  <!-- Retain the original site's CSS paths for deployment in its existing folder structure. -->
+  <link rel="stylesheet" href="../../assets/css/main.css" />
+  <noscript><link rel="stylesheet" href="../../assets/css/noscript.css" /></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Self-contained styling so the draft also renders when opened on its own. -->
+  <style>
+    :root {
+      --nav: #140d2e;
+      --nav-soft: #241942;
+      --ink: #22223c;
+      --muted: #667085;
+      --purple: #51419a;
+      --accent: #23a0a9;
+      --pale: #f6f7fb;
+      --line: #e1e4ed;
+      --sidebar: 310px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--pale); color: var(--ink); font: 16px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; }
+    a { color: #43358b; text-underline-offset: 3px; }
+    a:hover { color: #1b8b97; }
+    p { margin: 0 0 1.25rem; }
+    strong { font-weight: 700; }
+    h1, h2, h3, h4 { color: var(--ink); line-height: 1.25; }
+    h2 { font-size: clamp(1.55rem, 2.2vw, 2rem); margin: 0 0 1.35rem; }
+    h3 { font-size: 1.17rem; margin: 0 0 .7rem; }
+    ul { margin-top: .5rem; }
+    li { padding-left: .08rem; }
+    #nav {
+      position: fixed !important; top: 0 !important; bottom: 0 !important; left: 0 !important;
+      width: var(--sidebar) !important; height: 100vh !important;
+      background: var(--nav) !important; overflow-y: auto !important;
+      z-index: 100 !important; padding: 3.1rem 1.2rem !important;
+      display: flex !important; flex-direction: column !important;
+    }
+    #nav .nav-brand { margin: 0 1rem 2.35rem; color: white; font-family: Comfortaa, sans-serif; font-size: 1.05rem; font-weight: 700; line-height: 1.8; letter-spacing: .09em; text-transform: uppercase; }
+    #nav .nav-year { display: block; font-size: .9rem; color: #aab0d5; letter-spacing: .18em; margin-top: .2rem; }
+    #nav ul { display: flex !important; flex-direction: column !important; list-style: none !important; margin: 0 !important; padding: 0 !important; gap: .22rem; text-align: left !important; }
+    #nav ul li { margin: 0 !important; padding: 0 !important; }
+    #nav ul li a {
+      display: block !important; border: 0 !important; border-radius: 5px !important;
+      padding: .95rem 1rem !important; font-size: .88rem !important;
+      line-height: 1.4 !important; text-decoration: none !important; letter-spacing: .085em !important;
+      color: rgba(255,255,255,.74) !important; background: transparent !important;
+      box-shadow: none !important; text-align: left !important;
+    }
+    #nav ul li a:hover, #nav ul li a:focus-visible { color: #fff !important; background: rgba(255,255,255,.07) !important; }
+    #nav ul li a.active { color: #fff !important; background: var(--nav-soft) !important; border-left: 3px solid #5fd0d1 !important; padding-left: calc(1rem - 3px) !important; }
+    #nav ul li a::before, #nav ul li a::after { content: none !important; display: none !important; }
+    #nav .nav-foot { color: #aab0d5; font-size: .76rem; margin: auto 1rem 0; padding-top: 3rem; }
+    #wrapper { margin: 0 0 0 var(--sidebar) !important; width: calc(100% - var(--sidebar)) !important; max-width: none !important; background: #fff; padding: 0 !important; min-height: 100vh; }
+    .hero {
+      min-height: 255px; display: flex; align-items: center; justify-content: center;
+      padding: 3rem 2rem; text-align: center; color: #fff;
+      background-color: #1a1741;
+      background-image:
+        radial-gradient(circle at 10% 24%, rgba(255,255,255,.75) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 82% 30%, rgba(255,255,255,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 42% 70%, rgba(255,255,255,.7) 0 1.25px, transparent 1.6px),
+        radial-gradient(circle at 68% 76%, rgba(255,255,255,.65) 0 1px, transparent 1.5px),
+        linear-gradient(125deg, #140d2e 0%, #39316f 56%, #126c79 110%);
+      background-size: 178px 143px, 227px 201px, 319px 181px, 271px 233px, auto;
+    }
+    .hero-content { max-width: 830px; }
+    .hero-kicker { color: #b1e9e7; font-size: .84rem; font-weight: 700; letter-spacing: .21em; text-transform: uppercase; }
+    .hero h2 { margin: .6rem 0 .7rem; color: #fff; font: 700 clamp(2.2rem, 4.8vw, 4rem)/1.22 Comfortaa, sans-serif; letter-spacing: -.045em; }
+    .hero p { margin: 0; color: #e0e5f4; letter-spacing: .035em; }
+    #top-header { text-align: center; padding: 2.8rem 2rem 3.2rem; border-bottom: 1px solid var(--line); background: #fff; }
+    #top-header h1 { margin: 0 auto .85rem; font: 700 clamp(1.7rem, 3.2vw, 2.9rem)/1.3 Comfortaa, sans-serif !important; max-width: 950px; text-transform: none !important; letter-spacing: -.03em !important; text-decoration: none !important; color: var(--ink) !important; }
+    #top-header .date { color: #443b7b; font-size: 1.19rem; font-weight: 700; margin-bottom: .5rem; }
+    #top-header .host { color: var(--muted); margin-bottom: .75rem; }
+    .announced { display: inline-block; border: 1px solid #d8deeb; border-radius: 100px; background: #f7f8fb; padding: .27rem .95rem; color: #5d6680; font-size: .87rem; }
+    #main { width: 100%; }
+    #main section.main { padding: clamp(2.5rem, 5vw, 4.2rem) clamp(1.5rem, 6vw, 5.1rem) !important; margin: 0 !important; border-bottom: 1px solid var(--line); scroll-margin-top: 1rem; }
+    #main section.main:nth-child(even) { background: #fafbfe; }
+    .content { max-width: 1090px; margin: 0 auto; }
+    .major h2 { margin-top: 0 !important; }
+    .intro-lead { font-size: 1.12rem; line-height: 1.83; max-width: 950px; }
+    .topic-grid, .cols, .five-days { display: grid; gap: 1.5rem; }
+    .topic-grid, .cols { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .topic-grid { gap: 2rem; margin: 1.5rem 0 2rem; }
+    .topic-grid ul { margin: 0; padding-left: 1.35rem; }
+    .topic-grid li { margin-bottom: .45rem; }
+    .panel { border: 1px solid var(--line); border-radius: 10px; background: white; padding: 1.6rem; }
+    .panel p:last-child { margin-bottom: 0; }
+    .panel h3 { margin-top: 0 !important; }
+    .panel-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.3rem; }
+    .notice { border-left: 4px solid var(--accent); background: #ecf8f9; padding: 1.05rem 1.3rem; border-radius: 0 7px 7px 0; margin: 1.5rem 0; }
+    .notice p:last-child { margin-bottom: 0; }
+    .muted { color: var(--muted); }
+    .small { font-size: .92rem; }
+    .tbc { display: inline-block; color: #584a94; background: #f0eef9; font-size: .77rem; padding: .12rem .65rem; border-radius: 100px; font-weight: 700; white-space: nowrap; vertical-align: middle; }
+    .key-values { margin: .75rem 0; }
+    .key-values dt { font-weight: 700; margin-top: .8rem; }
+    .key-values dd { margin: .05rem 0 .7rem; color: #4a5166; }
+    .five-days { grid-template-columns: repeat(5,minmax(0,1fr)); gap: .75rem; margin: 1.6rem 0; }
+    .day { text-align: center; border: 1px solid var(--line); border-radius: 7px; background: #fff; padding: 1.15rem .6rem; }
+    .day b { display: block; color: #40377c; font-size: .93rem; }
+    .day span { display: block; font-size: 1.6rem; font-weight: 700; line-height: 1.45; }
+    .day em { display: block; font-style: normal; color: var(--muted); font-size: .8rem; }
+    .resource-links { display: flex; flex-wrap: wrap; gap: .8rem 1.3rem; margin-top: 1.3rem; }
+    .resource-links a { font-size: .95rem; font-weight: 600; }
+    #footer { display: block !important; background: #0d0920 !important; text-align: center; padding: 1.5rem 2rem !important; margin: 0 0 0 var(--sidebar) !important; color: #d0cee0; width: calc(100% - var(--sidebar)) !important; }
+    #footer p { margin: 0; font-size: .83rem; }
+    #footer a { color: #fff; }
+    @media(max-width: 1100px) { :root { --sidebar: 260px; } .five-days { gap: .5rem; } }
+    @media(max-width: 900px) {
+      #nav { position: relative !important; width: 100% !important; height: auto !important; padding: 1.1rem 1rem !important; }
+      #nav .nav-brand { margin: .25rem 1rem .6rem; font-size: .95rem; }
+      #nav .nav-year { display: inline; margin-left: .8rem; }
+      #nav ul { flex-direction: row !important; flex-wrap: wrap !important; gap: .12rem .25rem !important; }
+      #nav ul li a { font-size: .72rem !important; padding: .65rem .7rem !important; }
+      #nav ul li a.active { padding-left: .7rem !important; border-left: none !important; border-bottom: 2px solid #5fd0d1 !important; }
+      #nav .nav-foot { display: none; }
+      #wrapper, #footer { width: 100% !important; margin-left: 0 !important; }
+      #main section.main { scroll-margin-top: 0; }
+    }
+    @media(max-width: 620px) {
+      .hero { min-height: 210px; padding: 2.4rem 1.4rem; }
+      #top-header { padding: 2.15rem 1.25rem 2.6rem; }
+      .topic-grid, .cols, .panel-grid { grid-template-columns: 1fr; }
+      .five-days { grid-template-columns: repeat(5,minmax(0,1fr)); gap: .25rem; }
+      .day { padding: .65rem .1rem; }
+      .day b { font-size: .68rem; }
+      .day span { font-size: 1.2rem; }
+      .day em { font-size: .7rem; }
+      .panel { padding: 1.25rem; }
+    }
+    @media(prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" aria-label="Conference sections">
+    <div class="nav-brand">Stars &amp; Planets<span class="nav-year">Ōtautahi 2027</span></div>
+    <ul>
+      <li><a href="#intro" class="active">HOME</a></li>
+      <li><a href="#registration">REGISTRATION &amp; ABSTRACTS</a></li>
+      <li><a href="#program">PROGRAMME</a></li>
+      <li><a href="#logistics">LOGISTICS &amp; VENUE</a></li>
+      <li><a href="#dinner">CONFERENCE DINNER</a></li>
+      <li><a href="#orgcommittee">ORGANISING COMMITTEES</a></li>
+      <li><a href="#supported">SUPPORTED BY</a></li>
+    </ul>
+    <p class="nav-foot">22–26 November 2027<br />Christchurch, New Zealand</p>
+  </nav>
+
+  <div id="wrapper">
+    <!-- HERO PLACEHOLDER: Replace this illustrated banner with a licensed photo of Ōtautahi Christchurch or a suitable night-sky scene when available. -->
+    <div class="hero" role="img" aria-label="Stylised starfield banner for Stars and Planets 2027 in Ōtautahi Christchurch">
+      <div class="hero-content">
+        <div class="hero-kicker">A joint annual stellar &amp; planetary astronomy meeting</div>
+        <h2>Ōtautahi Christchurch</h2>
+        <p>Aotearoa New Zealand · November 2027</p>
+        <br>
+        <div class="image main" style="margin: 0; padding: 0;">
+            <!-- <img src="images/website_images/hobart.jpg" alt="Stars over Hobart" style="width: 100%; border-radius: 0;" /> -->
+            <img src="images/university_canterbury.jpg" alt="Stars over Hobart" style="position: relative; z-index: 2; padding: 0rem; border-radius: 10px;"/>
+        </div>
+      </div>
+    </div>
+
+    <header id="top-header" class="main">
+      <h1>Stars &amp; Planets in Ōtautahi Christchurch</h1>
+      <p class="date">22–26 November 2027</p>
+      <p class="host">University of Canterbury · Te Whare Wānanga o Waitaha</p>
+      <span class="announced">Monday–Friday · Daily start and finish times to be confirmed</span>
+    </header>
+
+    <main id="main">
+      <section id="intro" class="main">
+        <div class="content">
+          <header class="major"><h2>Series Overview: Bringing Stars &amp; Planets Together</h2></header>
+          <p class="intro-lead">The <strong>Stellar &amp; Planetary Astronomy (SPA) Chapter</strong> presents the <strong>Stars &amp; Planets in [X]</strong> conference series, bringing stellar and planetary astrophysics together in a single, integrated programme — with sessions on both topics interwoven throughout the week. This combined meeting builds on the established joint “Stars in [X]” and “Australian Exoplanet Workshop” conference series.</p>
+          <p><strong>Core topics for the series include:</strong></p>
+          <div class="topic-grid">
+            <div>
+              <ul>
+                <li>Asteroseismology, Stellar Activity, and Solar Physics</li>
+                <li>Clusters and Stellar Populations</li>
+                <li>Stellar Evolution and Supernovae</li>
+                <li>Stellar Atmospheres, Winds, and Magnetic Fields</li>
+              </ul>
+            </div>
+            <div>
+              <ul>
+                <li>Planet Formation and Evolution</li>
+                <li>Exoplanet Detection, Surveys, and Instrumentation</li>
+                <li>Atmospheres and Characterisation of Distant Worlds</li>
+                <li>Planet–Star Interactions and Habitability</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="registration" class="main">
+        <div class="content">
+          <header class="major"><h2>Registration &amp; Abstracts</h2></header>
+          <div class="panel">
+          <h3>Key Dates &amp; Deadlines</h3>
+          <dl class="key-values">
+            <dt>Conference dates</dt><dd>22–26 November 2027</dd>
+            <dt>Registration opens</dt><dd><span class="tbc">To be announced</span></dd>
+            <dt>Registration deadline</dt><dd><span class="tbc">To be announced</span></dd>
+            <dt>Abstract submission opens / closes</dt><dd><span class="tbc">To be announced</span></dd>
+          </dl>
+          </div>
+          <!-- PLACEHOLDER: Add the 2027 registration and abstract-submission URLs once published. Do not reuse the previous meeting’s Google Form. -->
+        </div>
+      </section>
+
+      <section id="program" class="main">
+        <div class="content">
+          <header class="major"><h2>Conference Programme</h2></header>
+          <p>The scientific programme is being developed. The meeting will run over five days, with stellar and planetary astronomy sessions interwoven throughout the week. We expect the meeting to start in the late morning/noon on Monday and finish early afternoon on Friday.</p>
+          <div class="five-days" aria-label="Meeting dates Monday 22 to Friday 26 November 2027">
+            <div class="day"><b>Mon</b><span>22</span><em>Nov</em></div>
+            <div class="day"><b>Tue</b><span>23</span><em>Nov</em></div>
+            <div class="day"><b>Wed</b><span>24</span><em>Nov</em></div>
+            <div class="day"><b>Thu</b><span>25</span><em>Nov</em></div>
+            <div class="day"><b>Fri</b><span>26</span><em>Nov</em></div>
+          </div>
+          <div class="notice"><p><strong>Programme schedule, speakers, session timings and any programme PDF:</strong> <span class="tbc">To be announced</span></p></div>
+          <!-- PLACEHOLDER: Replace this notice with the 2027 programme. The previous meeting’s PDF and interactive programme have intentionally been removed. -->
+        </div>
+      </section>
+
+      <section id="logistics" class="main">
+        <div class="content">
+          <header class="major"><h2>Logistics &amp; Venue</h2></header>
+          <p><strong>Stars &amp; Planets in Ōtautahi Christchurch</strong> will be held at the <strong>University of Canterbury (Te Whare Wānanga o Waitaha)</strong> in Christchurch, Aotearoa New Zealand.</p>
+          <div class="cols">
+            <div class="panel">
+              <h3>The Venue</h3>
+              <p><strong>University of Canterbury · Te Whare Wānanga o Waitaha</strong></p>
+              <p><strong>Building / lecture theatre:</strong> <span class="tbc">To be announced</span></p>
+              <p class="small muted">Room details and specific arrival instructions will be added once the conference venue is finalised.</p>
+            </div>
+            <div class="panel">
+              <h3>Campus Location</h3>
+              <p>The university’s main campus is in Ilam, to the west of central Christchurch.</p>
+              <div class="resource-links">
+                <a href="https://www.canterbury.ac.nz/about-uc/our-campus-and-environment" target="_blank" rel="noopener noreferrer">About the UC campus</a>
+                <a href="https://www.canterbury.ac.nz/content/dam/uoc-main-site/documents/pdfs/maps/UC-campus-map.pdf" target="_blank" rel="noopener noreferrer">UC campus map (PDF)</a>
+                <a href="https://www.google.com/maps/search/?api=1&amp;query=University%20of%20Canterbury%20Ilam%20Christchurch%20New%20Zealand" target="_blank" rel="noopener noreferrer">View on Google Maps</a>
+              </div>
+              <!-- PLACEHOLDER: Add a campus map image pinpointing the confirmed 2027 lecture theatre. -->
+            </div>
+          </div>
+          <div class="cols" style="margin-top: 1.4rem;">
+            <div>
+              <h3>Getting to Christchurch</h3>
+              <p>Christchurch Airport (CHC) serves domestic and international flights. Airport transport includes public buses, taxis, shuttles and car hire. Transport information and route schedules should be checked closer to the event.</p>
+              <div class="resource-links"><a href="https://www.christchurchairport.co.nz/travellers/parking-and-transport/public-transport/" target="_blank" rel="noopener noreferrer">Airport transport information</a></div>
+            </div>
+            <div>
+              <h3>Getting Around</h3>
+              <p>Christchurch’s Metro bus network connects the city centre, the airport and the university area. The UC campus can also be reached by taxi and rideshare services.</p>
+              <div class="resource-links"><a href="https://www.metroinfo.co.nz/" target="_blank" rel="noopener noreferrer">Metro public transport</a><a href="https://www.canterbury.ac.nz/about-uc/what-we-do/sustainability-at-uc/sustainability-on-campus/travel-and-transport/buses-and-public-transport" target="_blank" rel="noopener noreferrer">Travelling to UC by bus</a></div>
+            </div>
+          </div>
+          <div class="cols" style="margin-top: 2.1rem;">
+            <div>
+              <h3>Accommodation</h3>
+              <p>Accommodation in <strong>Ilam or Riccarton</strong> may be convenient for reaching the campus. <strong>Central Christchurch</strong> is another option for visitors who prefer to stay near the city’s restaurants and attractions and travel to the university each day.</p>
+              <p class="small muted">Any negotiated accommodation rates or recommendations will be listed here if available.</p>
+            </div>
+            <div>
+              <h3>Things to Do</h3>
+              <p>Ōtautahi Christchurch is a gateway to Canterbury’s coast, mountains and outdoor landscapes, with museums, gardens, cafés and restaurants in the city itself.</p>
+              <div class="resource-links"><a href="https://www.christchurchnz.com/visit" target="_blank" rel="noopener noreferrer">Explore Ōtautahi Christchurch</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="dinner" class="main">
+        <div class="content">
+          <header class="major"><h2>Conference Dinner</h2></header>
+          <div class="panel">
+            <h3>Dinner Details</h3>
+            <dl class="key-values">
+              <dt>Date &amp; time</dt><span class="tbc">To be announced</span>
+              <dt>Location</dt><span class="tbc">To be announced</span>
+              <dt>Tickets / price</dt><span class="tbc">To be announced</span>
+              <dt>Booking information</dt><span class="tbc">To be announced</span>
+            </dl>
+          </div>
+          <!-- PLACEHOLDER: Add confirmed dinner details and a new 2027 payment/booking link. Do not reuse the prior meeting’s dinner details or payment link. -->
+        </div>
+      </section>
+
+      <section id="orgcommittee" class="main">
+        <div class="content">
+          <header class="major"><h2>Organising Committees</h2></header>
+          <p>The meeting is organised by members of the stellar and planetary astrophysics communities. The 2027 committees will be listed here when finalised.</p>
+          <div class="cols">
+            <div class="panel">
+              <h3>Scientific Organising Committee (SOC)</h3>
+              <ul style="line-height: 1.8rem !important;">
+                  <li>Daniel Price (Chair) — <span style="color: #999999;">Monash University</span></li>
+                  <li>Kayla Martin — <span style="color: #999999;">Macquarie University</span></li>
+                  <li>Orsola De Marco — <span style="color: #999999;">Macquarie University</span></li>
+                  <li>Laura Driessen — <span style="color: #999999;">University of Sydney</span></li>
+                  <li>Benjamin Pope — <span style="color: #999999;">Macquarie University</span></li>
+                  <li>Sven Buder — <span style="color: #999999;">Australian National University</span></li>
+                  <li>Rebecca Nealon — <span style="color: #999999;">Monash University</span></li>
+              </ul>
+            </div>
+            <div class="panel">
+              <h3>Local Organising Committee (LOC)</h3>
+              In alphabetical order and to be finalised:
+              <ul style="line-height: 1.8rem !important;">
+                  <li> Michael Albrow — <span style="color: #999999;">University of Canterbury</span></li>
+                  <li> Karen Pollard — <span style="color: #999999;">University of Canterbury</span></li>
+                  <li> Heather Sinclair-Wentworth — <span style="color: #999999;">University of Canterbury</span></li>
+                  <li> Clare Worley — <span style="color: #999999;">University of Canterbury</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="supported" class="main">
+        <div class="content">
+          <header class="major"><h2>Supported By</h2></header>
+          <p>We look forward to recognising the organisations and institutions supporting Stars &amp; Planets in Ōtautahi Christchurch 2027.</p>
+          <div class="panel" style="text-align:center;">
+            <p><span class="tbc">2027 sponsors and supporters to be announced</span></p>
+            <p class="small muted">Sponsor names, logos and acknowledgements will be added once support is confirmed.</p>
+          </div>
+          <!-- PLACEHOLDER: Insert 2027 sponsor and host logos only with permission/confirmation. Prior meeting sponsor logos are intentionally absent. -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer id="footer"><p>&copy; ASA Stellar &amp; Planetary Astronomy Chapter · Design based on <a href="https://html5up.net" target="_blank" rel="noopener noreferrer">HTML5 UP</a>.</p></footer>
+
+  <!-- Simple navigation highlighting that also works when the original site's JavaScript assets are unavailable. -->
+  <script>
+    (() => {
+      const links = [...document.querySelectorAll('#nav a[href^="#"]')];
+      const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+      if (!('IntersectionObserver' in window)) return;
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (!visible.length) return;
+        const currentId = visible[0].target.id;
+        links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + currentId));
+      }, { rootMargin: '-18% 0px -65% 0px', threshold: 0 });
+      sections.forEach(section => observer.observe(section));
+    })();
+  </script>
+</body>
+</html>
